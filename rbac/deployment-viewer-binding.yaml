@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: deployment-viewer-binding
+  namespace: rbactest
+subjects:
+- kind: User
+  name: demo
+  apiGroup: ""
+roleRef:
+  kind: Role
+  name: deployment-viewer
+  apiGroup: ""
