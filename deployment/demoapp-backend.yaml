@@ -36,11 +36,11 @@ spec:
         - containerPort: 3000
         resources:
           requests:
-            cpu: "200m"
-            memory: "300Mi"
+            cpu: "50m"
+            memory: "50Mi"
           limits:
-            cpu: "300m"
-            memory: "500Mi"
+            cpu: "50m"
+            memory: "50Mi"
         env:
           - name: PORT
             value : "3000"
