@@ -16,7 +16,7 @@ spec:
       containers:
         - name: demo-operator-frontend
           # Replace this with the built image name
-          image: niklaushirt/demo-operator-frontend:v0.0.1
+          image: localhost:5000/demo-operator-frontend:v0.0.1
           command:
           - demo-operator-frontend
           imagePullPolicy: Always
