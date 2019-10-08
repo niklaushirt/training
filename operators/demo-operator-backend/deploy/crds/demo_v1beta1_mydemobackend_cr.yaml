@@ -1,0 +1,10 @@
+apiVersion: demo.ibm.com/v1beta1
+kind: MyDemoBackend
+metadata:
+  name: example-mydemobackend
+spec:
+  # Add fields here
+  size: 3
+  label: backend
+  image: niklaushirt/k8sdemo-backend:1.0.0
+  message: "Hello from the Operator Lab..."

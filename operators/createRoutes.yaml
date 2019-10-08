@@ -1,0 +1,30 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: example-mydemofrontend-service
+  namespace: default
+spec:
+  host: example-mydemofrontend-service-default.apps.192.168.27.180.nip.io
+  port:
+    targetPort: http
+  to:
+    kind: Service
+    name: example-mydemofrontend-service
+    weight: 100
+  wildcardPolicy: None
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: example-mydemobackend-service
+  namespace: default
+spec:
+  host: example-mydemobackend-service-default.apps.192.168.27.180.nip.io
+  port:
+    targetPort: http
+  to:
+    kind: Service
+    name: example-mydemobackend-service
+    weight: 100
+  wildcardPolicy: None
+

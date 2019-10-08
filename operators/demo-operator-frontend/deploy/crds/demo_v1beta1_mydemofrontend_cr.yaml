@@ -1,0 +1,10 @@
+apiVersion: demo.ibm.com/v1beta1
+kind: MyDemoFrontend
+metadata:
+  name: example-mydemofrontend
+spec:
+  # Add fields here
+  size: 3
+  label: test
+  image: niklaushirt/k8sdemo:1.0.0
+  backend: "http://example-mydemobackend-service.default.svc:3000/api"
