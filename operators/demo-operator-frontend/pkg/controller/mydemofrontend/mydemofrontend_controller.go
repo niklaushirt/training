@@ -162,8 +162,15 @@ func (r *ReconcileMyDemoFrontend) Reconcile(request reconcile.Request) (reconcil
 
 
 	//--------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------
 	// CRUD the Deployment object
 	//--------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------
+
+	//--------------------------------------------------------------------------------------------
+	// CREATE
+	//--------------------------------------------------------------------------------------------
+
 	// Check if this Deployment already exists
 	foundDeployment := &appsv1.Deployment{}
 	err = r.client.Get(context.TODO(), types.NamespacedName{Name: deployment.Name, Namespace: deployment.Namespace}, foundDeployment)
@@ -179,6 +186,25 @@ func (r *ReconcileMyDemoFrontend) Reconcile(request reconcile.Request) (reconcil
 	} else if err != nil {
 		return reconcile.Result{}, err
 	}
+
+
+	
+	//--------------------------------------------------------------------------------------------
+	// UPDATE
+	//--------------------------------------------------------------------------------------------
+
+	// Check if the Size in CR has changed and update accordingly
+	size:=instance.Spec.Size
+	if  foundDeployment.Spec.Replicas != size {
+		foundDeployment.Spec.Replicas = size
+		err = r.client.Update(context.TODO(), foundDeployment)
+		if err != nil {
+			reqLogger.Error(err, "Failed to update Deployment for Replicas.", "Deployment.Namespace", foundDeployment.Namespace, "Deployment.Name", foundDeployment.Name)
+			return reconcile.Result{}, err
+		}
+		reqLogger.Info("Updating Deployment for Replicas.", "Deployment.Namespace", foundDeployment.Namespace, "Deployment.Name", foundDeployment.Name)
+	}
+
 
 	// Check if the Image in CR has changed and update accordingly
 	image:=instance.Spec.Image
@@ -253,6 +279,7 @@ func newMyDemoDeployment(cr *demov1beta1.MyDemoFrontend) *appsv1.Deployment {
 		Namespace: cr.Namespace,
 	  },
 	  Spec: appsv1.DeploymentSpec{
+		Replicas: cr.Spec.Size,
 		Selector: &metav1.LabelSelector{
 		  MatchLabels: map[string]string{"deployment": cr.Name + "-deployment"},
 		},

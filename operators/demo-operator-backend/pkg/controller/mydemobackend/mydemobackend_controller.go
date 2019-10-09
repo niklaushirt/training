@@ -137,7 +137,7 @@ func (r *ReconcileMyDemoBackend) Reconcile(request reconcile.Request) (reconcile
 
 	
 
-//--------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------
 	// Define the Deployment object
 	//--------------------------------------------------------------------------------------------
 	deployment := newMyDemoDeployment(instance)
@@ -177,6 +177,19 @@ func (r *ReconcileMyDemoBackend) Reconcile(request reconcile.Request) (reconcile
 	} else if err != nil {
 		return reconcile.Result{}, err
 	}
+
+	// Check if the Size in CR has changed and update accordingly
+	size:=instance.Spec.Size
+	if  foundDeployment.Spec.Replicas != size {
+		foundDeployment.Spec.Replicas = size
+		err = r.client.Update(context.TODO(), foundDeployment)
+		if err != nil {
+			reqLogger.Error(err, "Failed to update Deployment for Replicas.", "Deployment.Namespace", foundDeployment.Namespace, "Deployment.Name", foundDeployment.Name)
+			return reconcile.Result{}, err
+		}
+		reqLogger.Info("Updating Deployment for Replicas.", "Deployment.Namespace", foundDeployment.Namespace, "Deployment.Name", foundDeployment.Name)
+	}
+
 
 	// Check if the Image in CR has changed and update accordingly
 	image:=instance.Spec.Image
@@ -253,6 +266,7 @@ func newMyDemoDeployment(cr *demov1beta1.MyDemoBackend) *appsv1.Deployment {
 		Namespace: cr.Namespace,
 	  },
 	  Spec: appsv1.DeploymentSpec{
+		Replicas: cr.Spec.Size,
 		Selector: &metav1.LabelSelector{
 		  MatchLabels: map[string]string{"deployment": cr.Name + "-deployment"},
 		},

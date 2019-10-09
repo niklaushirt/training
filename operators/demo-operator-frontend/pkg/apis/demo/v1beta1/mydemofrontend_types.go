@@ -16,6 +16,8 @@ type MyDemoFrontendSpec struct {
 		   
 	// Label is the value of the 'daemon=' label to set on a node that should run the daemon
 	Label string `json:"label"`
+	// Label is the value of the 'daemon=' label to set on a node that should run the daemon
+	Size *int32 `json:"size"`
 	// Image is the Docker image to run for the daemon
 	Image string `json:"image"`
 	// Image is the Docker backend image to run for the daemon

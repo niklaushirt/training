@@ -8,3 +8,7 @@ spec:
   label: backend
   image: niklaushirt/k8sdemo-backend:1.0.0
   message: "Hello from the Operator Lab..."
+
+
+
+  
