@@ -158,10 +158,16 @@ func (r *ReconcileMyDemoBackend) Reconcile(request reconcile.Request) (reconcile
 	}
 
 
-
+	//--------------------------------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------------
 	// CRUD the Deployment object
 	//--------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------
+
+	//--------------------------------------------------------------------------------------------
+	// CREATE
+	//--------------------------------------------------------------------------------------------
+
 	// Check if this Deployment already exists
 	foundDeployment := &appsv1.Deployment{}
 	err = r.client.Get(context.TODO(), types.NamespacedName{Name: deployment.Name, Namespace: deployment.Namespace}, foundDeployment)
@@ -177,6 +183,11 @@ func (r *ReconcileMyDemoBackend) Reconcile(request reconcile.Request) (reconcile
 	} else if err != nil {
 		return reconcile.Result{}, err
 	}
+
+
+	//--------------------------------------------------------------------------------------------
+	// UPDATE
+	//--------------------------------------------------------------------------------------------
 
 	// Check if the Size in CR has changed and update accordingly
 	size:=instance.Spec.Size
