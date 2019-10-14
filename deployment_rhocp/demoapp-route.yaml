@@ -7,3 +7,5 @@ spec:
   to:
     kind: Service
     name: k8sdemo-service
+    weight: 100
+  wildcardPolicy: None
