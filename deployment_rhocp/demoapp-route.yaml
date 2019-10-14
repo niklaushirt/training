@@ -1,0 +1,9 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: k8sdemo-service
+spec:
+  host: k8sdemo-service-default.apps.192.168.56.199.nip.io
+  to:
+    kind: Service
+    name: k8sdemo-service
