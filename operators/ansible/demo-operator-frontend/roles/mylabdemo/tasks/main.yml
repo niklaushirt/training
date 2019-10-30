@@ -1,0 +1,46 @@
+- name: Create the k8sdemo deployment
+  k8s:
+    definition:
+      apiVersion: apps/v1beta1
+      kind: Deployment
+      metadata:
+        name: k8sdemo
+        namespace: default
+      spec:
+        replicas: 1
+        template:
+          metadata:
+            labels:
+              app: k8sdemo
+          spec:
+            containers:
+            - name: k8sdemo
+              image: "{{demo.image}}"
+              imagePullPolicy: IfNotPresent 
+              ports:
+              - containerPort: 3000
+              env:
+                - name: PORT
+                  value : "3000"
+                - name: APPLICATION_NAME
+                  value: k8sdemo
+                - name: BACKEND_URL
+                  value: http://k8sdemo-backend-service.default.svc:3000/api
+
+- name: Create the k8sdemo service
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: k8sdemo-service
+        namespace: default
+      spec:
+        selector:
+          app: k8sdemo
+        ports:
+          - protocol: TCP
+            port: 3000
+            targetPort: 3000
+            nodePort: 32123
+        type: NodePort  

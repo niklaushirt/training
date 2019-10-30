@@ -1,0 +1,9 @@
+apiVersion: lab.ibm.com/v1beta1
+kind: MyLabDemo
+metadata:
+  name: example-mylabdemo
+spec:
+  # Add fields here
+  size: 3
+  demo:
+    image: niklaushirt/k8sdemo:1.0.0

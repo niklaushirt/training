@@ -1,0 +1,5 @@
+---
+- version: v1beta1
+  group: lab.ibm.com
+  kind: MyLabDemo
+  role: /opt/ansible/roles/mylabdemo
