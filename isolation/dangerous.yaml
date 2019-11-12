@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu
+  annotations:
+    container.apparmor.security.beta.kubernetes.io/ubuntu: unconfined
+spec:
+  containers:
+  - name: ubuntu
+    image: ubuntu:xenial
+    command: ['sh', '-c', 'sleep 3600']
+    securityContext:
+      capabilities:
+        add: ["SYS_ADMIN"]
