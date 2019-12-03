@@ -6,3 +6,4 @@ echo "Fix minikube permissions"
 echo "Reset K8s DNS"
 kubectl delete pods -l k8s-app=kube-dns -n kube-system
 
+
