@@ -1,7 +1,7 @@
 apiVersion: "config.istio.io/v1alpha2"
 kind: handler
 metadata:
-  name: denyreviewsv3handler
+  name: denyreviewsv2handler
 spec:
   compiledAdapter: denier
   params:
@@ -12,16 +12,16 @@ spec:
 apiVersion: "config.istio.io/v1alpha2"
 kind: instance
 metadata:
-  name: denyreviewsv3request
+  name: denyreviewsv2request
 spec:
   compiledTemplate: checknothing
 ---
 apiVersion: "config.istio.io/v1alpha2"
 kind: rule
 metadata:
-  name: denyreviewsv3
+  name: denyreviewsv2
 spec:
-  match: destination.labels["app"] == "ratings" && source.labels["app"]=="reviews" && source.labels["version"] == "v3"
+  match: destination.labels["app"] == "ratings" && source.labels["app"]=="reviews" && source.labels["version"] == "v2"
   actions:
-  - handler: denyreviewsv3handler
-    instances: [ denyreviewsv3request ]
+  - handler: denyreviewsv2handler
+    instances: [ denyreviewsv2request ]
