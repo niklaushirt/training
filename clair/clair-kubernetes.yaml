@@ -35,7 +35,7 @@ spec:
           secretName: clairsecret
       containers:
       - name: clair
-        image: quay.io/coreos/clair:v2.0.1
+        image: quay.io/coreos/clair:v2.1.2
         args:
           - "-config"
           - "/config/config.yaml"
