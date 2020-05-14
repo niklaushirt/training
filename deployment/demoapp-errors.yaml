@@ -3,10 +3,12 @@ kind: Deployment
 metadata:
   name: k8sdemo-nok
   namespace: default
+  labels:
+    app: k8sdemo-nok
 spec:
   selector:
     matchLabels:
-      name: k8sdemo-nok
+      app: k8sdemo-nok
   replicas: 1
   template:
     metadata:

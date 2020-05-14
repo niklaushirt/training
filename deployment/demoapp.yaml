@@ -3,10 +3,12 @@ kind: Deployment
 metadata:
   name: k8sdemo
   namespace: default
+  labels:
+    app: k8sdemo
 spec:
   selector:
     matchLabels:
-      name: k8sdemo
+      app: k8sdemo
   replicas: 1
   strategy:
     type: RollingUpdate
