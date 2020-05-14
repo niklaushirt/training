@@ -1,10 +1,10 @@
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: k8sdemo
+  name: k8sdemo-backend
   namespace: default
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -13,13 +13,13 @@ spec:
   template:
     metadata:
       labels:
-        app: k8sdemo
+        app: k8sdemo-backend
         version: current
     spec:
       containers:
-      - name: k8sdemo
-        image: niklaushirt/k8sdemo:1.0.0
-        imagePullPolicy: Always 
+      - name: k8sdemo-backend
+        image: niklaushirt/k8sdemo-backend:1.0.0
+        imagePullPolicy: IfNotPresent 
         livenessProbe:
           httpGet:
             path: /health
@@ -45,6 +45,6 @@ spec:
           - name: PORT
             value : "3000"
           - name: APPLICATION_NAME
-            value: k8sdemo
-          - name: BACKEND_URL
-            value: http://k8sdemo-backend-service.default.svc:3000/api
+            value: k8sdemo-backend
+          - name: BACKEND_MESSAGE
+            value: "Hi there from the Security Training..."
