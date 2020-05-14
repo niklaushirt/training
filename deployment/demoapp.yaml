@@ -4,6 +4,9 @@ metadata:
   name: k8sdemo
   namespace: default
 spec:
+  selector:
+    matchLabels:
+      name: k8sdemo
   replicas: 1
   strategy:
     type: RollingUpdate

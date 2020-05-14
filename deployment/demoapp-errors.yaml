@@ -4,6 +4,9 @@ metadata:
   name: k8sdemo-nok
   namespace: default
 spec:
+  selector:
+    matchLabels:
+      name: k8sdemo-nok
   replicas: 1
   template:
     metadata:
