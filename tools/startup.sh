@@ -1,6 +1,6 @@
 #/bin/bash
-
-minikube start  --memory=8192 --cpus=4 --network-plugin=cni  --kubernetes-version v1.17.0
+docker start portainer
+minikube start
 
 echo "Create Registry"
 kubectl apply -f ./training/tools/kube-registry.yaml
