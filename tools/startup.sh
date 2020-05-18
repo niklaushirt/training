@@ -8,8 +8,8 @@ kubectl port-forward --namespace kube-system $(kubectl get po -n kube-system | g
 echo "Create CNI Cilium"
 kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.6/install/kubernetes/quick-install.yaml
 
-echo "Waiting 2 minutes to start Kubernetes Dashboard"
-sleep 120
+echo "Waiting 1 minute to start Kubernetes Dashboard"
+sleep 60
 minikube dashboard &
 
 echo "Cleaning up"
