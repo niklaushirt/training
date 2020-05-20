@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: student-ui
-        image: niklaushirt/collector:courselatest
+        image: PTE_IMAGE
         imagePullPolicy: Always
         ports:
         - containerPort: 3000

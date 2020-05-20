@@ -66,6 +66,7 @@ echo " ${CYAN} Preparing your Personal Training Environment${NC}"
 
         sed -i "s@TRAINING_NAME@$DO_NAM@" ~/training/pte/fscollector_student_deploy.yaml 
         sed -i "s@TRAINING_INSTRUCTOR@$TRAINING_INSTRUCTOR@" ~/training/pte/fscollector_student_deploy.yaml
+        sed -i "s@PTE_IMAGE@$PTE_IMAGE@" ~/training/pte/fscollector_student_deploy.yaml
 
 
         kubectl delete -f ~/training/pte/fscollector_student_deploy.yaml > /dev/null
@@ -82,12 +83,10 @@ echo " ${CYAN} Preparing your Personal Training Environment${NC}"
 
         minikube service student-ui
 
-echo "${GREEN}--------------------------------------------------------------------------------${NC}"
-echo "${GREEN}--------------------------------------------------------------------------------${NC}"
-echo " ${GREEN}${healthy} DONE.... You're ready to go${NC}"
-echo "${GREEN}--------------------------------------------------------------------------------${NC}"
-echo "${GREEN}--------------------------------------------------------------------------------${NC}"
-echo "${GREEN}--------------------------------------------------------------------------------${NC}"
-echo "${GREEN}--------------------------------------------------------------------------------${NC}"
 echo "${GREEN}********************************************************************************${NC}"
 echo "${GREEN}********************************************************************************${NC}"
+echo " ${GREEN}${healthy} Personal Training Environment done....${NC}"
+echo "${GREEN}********************************************************************************${NC}"
+echo "${GREEN}********************************************************************************${NC}"
+
+
