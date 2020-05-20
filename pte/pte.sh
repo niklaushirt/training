@@ -27,7 +27,7 @@ echo " ${CYAN}    --------------------------------------------- $DO_NAM ${NC}"
 echo " ${NC}    The following steps will create your web-based Personal Training Environment $DO_NAM ${NC}"
 echo " ${NC}    You will have to enter a name that will be used to show your progress in the Instructor Dashboard $DO_NAM ${NC}"
 echo " ${NC}    in order to better assist you. $DO_NAM ${NC}"
-cho "${GREEN}********************************************************************************${NC}"
+echo "${GREEN}********************************************************************************${NC}"
 echo "  "
 echo "  "
 echo "  "
@@ -77,7 +77,7 @@ echo " ${CYAN} Preparing your Personal Training Environment${NC}"
         echo "${clock} Wait for Personal Training Environment to reach running state."
         while [ ${FOUND} -eq 0 ]; do
           FOUND=$(kubectl get pods | grep student | grep 1/1 | grep -c "")
-          echo "${clock} Still waiting for Personal Training Environment to reach running state."
+          echo "${clock} Still waiting for Personal Training Environment to reach running state. This can take some time...."
           sleep 10 
         done 
 
