@@ -13,7 +13,7 @@
 
 
 export TRAINING_INSTRUCTOR="http://dashboard-default.cp4mcp-demo-002-a376efc1170b9b8ace6422196c51e491-0000.us-south.containers.appdomain.cloud"
-export PTE_IMAGE=niklaushirt/pte:training2020-kws102
+export PTE_IMAGE=niklaushirt/pte:training2020-kws103
 
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
@@ -26,7 +26,8 @@ echo " ${CYAN}    Setting up your Personal Training Environment (PTE) $DO_NAM ${
 echo " ${CYAN}    --------------------------------------------- $DO_NAM ${NC}"
 echo " ${NC}    The following steps will create your web-based Personal Training Environment $DO_NAM ${NC}"
 echo " ${NC}    You will have to enter a name that will be used to show your progress in the Instructor Dashboard $DO_NAM ${NC}"
-echo "${GREEN}********************************************************************************${NC}"
+echo " ${NC}    in order to better assist you. $DO_NAM ${NC}"
+cho "${GREEN}********************************************************************************${NC}"
 echo "  "
 echo "  "
 echo "  "
