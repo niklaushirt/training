@@ -1,0 +1,72 @@
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: collector-config
+  namespace: default
+data:
+  COLLECTOR_CONFIG: 'http://student-ui'
+  INSTRUCTOR_CONFIG: 'http://dashboard-default.cp4mcp-demo-002-a376efc1170b9b8ace6422196c51e491-0000.us-south.containers.appdomain.cloud'
+  APP_NAMESPACE: 'Training1'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-ui
+  namespace: default
+  labels:
+    app: student-ui
+spec:
+  selector:
+    matchLabels:
+      app: student-ui
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: student-ui
+    spec:
+      containers:
+      - name: student-ui
+        image: niklaushirt/collector:courselatest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        env:
+          - name: APP_NAMESPACE
+            valueFrom:
+              configMapKeyRef:
+                name: collector-config
+                key: APP_NAMESPACE
+          - name: APP_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: COLLECTOR_CONFIG
+            valueFrom: 
+              configMapKeyRef:
+                name: collector-config
+                key: COLLECTOR_CONFIG
+        resources:
+          requests:
+            cpu: 80m
+            memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: student-ui
+  namespace: default
+  labels:
+    app: student-ui
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 3000
+      nodePort: 31222
+      protocol: TCP
+      name: student-ui
+  selector:
+    app: student-ui
