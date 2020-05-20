@@ -36,11 +36,6 @@ echo " ${CYAN}    Creating CNI Cilium  ${NC}"
 kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.6/install/kubernetes/quick-install.yaml > /dev/null
 
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
-echo " ${ORANGE}    Waiting 1 minute to start Kubernetes Dashboard  ${NC}"
-sleep 60
-minikube dashboard > /dev/null & 
-
-echo "${GREEN}--------------------------------------------------------------------------------${NC}"
 echo " ${CYAN}    Cleaning up  ${NC}"
 kubectl get pods -n kube-system | grep -E "(Terminating|CrashLoopBackOff)" | awk '{print $1}' | xargs kubectl delete pod -n kube-system --force --grace-period=0
 

@@ -25,7 +25,7 @@ echo " ${ORANGE}${rocket} Kubernetes Workshop Series ${NC}"
 echo ""
 echo "${GREEN}********************************************************************************${NC}"
 echo "${GREEN}********************************************************************************${NC}"
-echo " ${CYAN}    Setting up your Personal Training Environment $DO_NAM ${NC}"
+echo " ${CYAN}    Setting up your Personal Training Environment (PTE) $DO_NAM ${NC}"
 echo " ${CYAN}    --------------------------------------------- $DO_NAM ${NC}"
 echo " ${NC}    The following steps will create your web-based Personal Training Environment $DO_NAM ${NC}"
 echo " ${NC}    You will have to enter a name that will be used to show your progress in the Instructor Dashboard $DO_NAM ${NC}"
@@ -63,15 +63,15 @@ echo "${GREEN}******************************************************************
 echo "  "
 echo " ${CYAN} Preparing your Personal Training Environment${NC}"
 
-        rm -f ~/training/dashboard/fscollector_student_$DO_NAM.yaml > /dev/null
-        cp ~/training/dashboard/fscollector_student.yaml ~/training/dashboard/fscollector_student_deploy.yaml
+        rm -f ~/training/pte/fscollector_student_$DO_NAM.yaml > /dev/null
+        cp ~/training/pte/fscollector_student.yaml ~/training/pte/fscollector_student_deploy.yaml
 
-        sed -i "s@TRAINING_NAME@$DO_NAM@" ~/training/dashboard/fscollector_student_deploy.yaml 
-        sed -i "s@TRAINING_INSTRUCTOR@$TRAINING_INSTRUCTOR@" ~/training/dashboard/fscollector_student_deploy.yaml
+        sed -i "s@TRAINING_NAME@$DO_NAM@" ~/training/pte/fscollector_student_deploy.yaml 
+        sed -i "s@TRAINING_INSTRUCTOR@$TRAINING_INSTRUCTOR@" ~/training/pte/fscollector_student_deploy.yaml
 
 
-        kubectl delete -f ~/training/dashboard/fscollector_student_deploy.yaml > /dev/null
-        kubectl apply -f ~/training/dashboard/fscollector_student_deploy.yaml
+        kubectl delete -f ~/training/pte/fscollector_student_deploy.yaml > /dev/null
+        kubectl apply -f ~/training/pte/fscollector_student_deploy.yaml
 
 
         FOUND=0
