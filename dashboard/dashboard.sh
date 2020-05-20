@@ -20,8 +20,15 @@ source ./0_config.sh
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 echo "${GREEN}***************************************************************************************************************************************************${NC}"
 echo "${GREEN}***************************************************************************************************************************************************${NC}"
-echo " ${CYAN}${rocket} Kubernetes Workshop Series ${NC}"
+echo ""
+echo " ${ORANGE}${rocket} Kubernetes Workshop Series ${NC}"
+echo ""
 echo "${GREEN}***************************************************************************************************************************************************${NC}"
+echo "${GREEN}***************************************************************************************************************************************************${NC}"
+echo " ${CYAN}    Setting up your Personal Training Environment $DO_NAM ${NC}"
+echo " ${CYAN}    --------------------------------------------- $DO_NAM ${NC}"
+echo " ${NC}    The following steps will create your web-based Personal Training Environment $DO_NAM ${NC}"
+echo " ${NC}    You will have to enter a name that will be used to show your progress in the Instructor Dashboard $DO_NAM ${NC}"
 echo "${GREEN}***************************************************************************************************************************************************${NC}"
 echo "  "
 echo "  "
@@ -36,13 +43,15 @@ echo "  "
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 echo "${CYAN}***************************************************************************************************************************${NC}"
 echo "${CYAN}---------------------------------------------------------------------------------------------------------------------------${NC}"
-echo " ${PURPLE}${magnifying} Please enter your name${NC}"
+echo " ${PURPLE}${magnifying} Please enter your name ${NC}"
 echo "${CYAN}---------------------------------------------------------------------------------------------------------------------------${NC}"
 
         read -p "Name:" DO_NAM
         if [[ $DO_NAM == "" ]]; then
-          echo "${RED}${cross} Aborted: Please enter your name${NC}"
+          echo "${RED}${cross} Aborted: ${ORANGE}Please enter your name so that we can better assist you${NC}"
           exit 2
+        else
+            DO_NAM=${DO_NAM// /_}
         fi
 
 echo "${CYAN}***************************************************************************************************************************${NC}"
@@ -51,7 +60,7 @@ echo " ${PURPLE}${magnifying} Welcome $DO_NAM ${NC}"
 echo "${CYAN}---------------------------------------------------------------------------------------------------------------------------${NC}"
 echo "${GREEN}***************************************************************************************************************************************************${NC}"
 echo "  "
-echo " ${CYAN} Preparing your personal training environment${NC}"
+echo " ${CYAN} Preparing your Personal Training Environment${NC}"
 
         rm -f ~/training/dashboard/fscollector_student_$DO_NAM.yaml > /dev/null
         cp ~/training/dashboard/fscollector_student.yaml ~/training/dashboard/fscollector_student_deploy.yaml
@@ -62,6 +71,15 @@ echo " ${CYAN} Preparing your personal training environment${NC}"
 
         kubectl delete -f ~/training/dashboard/fscollector_student_deploy.yaml > /dev/null
         kubectl apply -f ~/training/dashboard/fscollector_student_deploy.yaml
+
+
+        FOUND=1
+
+        echo "${clock} Wait for ${podName} to reach running state (4min)."
+        while [ ${FOUND} -eq 1 ]; do
+
+
+
 
         minikube service student-ui
 
