@@ -29,7 +29,7 @@ minikube start
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
 echo " ${CYAN}    Creating Registry  ${NC}"
 kubectl apply -f ./training/tools/kube-registry.yaml > /dev/null
-kubectl port-forward --namespace kube-system $(kubectl get po -n kube-system | grep kube-registry-v0 | \awk '{print $1;}') 5000:5000  > /dev/null&
+kubectl port-forward --namespace kube-system $(kubectl get po -n kube-system | grep kube-registry-v0 | \awk '{print $1;}') 5000:5000  > /dev/null &
 
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
 echo " ${CYAN}    Creating CNI Cilium  ${NC}"
@@ -38,7 +38,7 @@ kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.6/install/k
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
 echo " ${ORANGE}    Waiting 1 minute to start Kubernetes Dashboard  ${NC}"
 sleep 60
-minikube dashboard & > /dev/null
+minikube dashboard > /dev/null & 
 
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
 echo " ${CYAN}    Cleaning up  ${NC}"
