@@ -146,9 +146,9 @@ export On_IWhite="\033[0;107m"   # White
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
         # fix sed issue on mac
         OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-        SED="sed"
+        export SED="sed"
         if [ "${OS}" == "darwin" ]; then
-            SED="gsed"
+            export SED="gsed"
             if [ ! -x "$(command -v ${SED})"  ]; then
             echo "This script requires $SED, but it was not found.  Perform \"brew install gnu-sed\" and try again."
             exit
