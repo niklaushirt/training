@@ -56,8 +56,8 @@ echo " ${CYAN} Preparing your personal training environment${NC}"
         rm -f ~/training/dashboard/fscollector_student_$DO_NAM.yaml > /dev/null
         cp ~/training/dashboard/fscollector_student.yaml ~/training/dashboard/fscollector_student_deploy.yaml
 
-        ${SED} -i "s@TRAINING_NAME@$DO_NAM@" ~/training/dashboard/fscollector_student_deploy.yaml 
-        ${SED} -i "s@TRAINING_INSTRUCTOR@$TRAINING_INSTRUCTOR@" ~/training/dashboard/fscollector_student_deploy.yaml
+        sed -i "s@TRAINING_NAME@$DO_NAM@" ~/training/dashboard/fscollector_student_deploy.yaml 
+        sed -i "s@TRAINING_INSTRUCTOR@$TRAINING_INSTRUCTOR@" ~/training/dashboard/fscollector_student_deploy.yaml
 
 
         kubectl delete -f ~/training/dashboard/fscollector_student_deploy.yaml > /dev/null
