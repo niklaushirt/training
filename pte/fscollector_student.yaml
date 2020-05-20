@@ -39,6 +39,11 @@ spec:
               configMapKeyRef:
                 name: collector-config
                 key: APP_NAMESPACE
+          - name: INSTRUCTOR_CONFIG
+            valueFrom:
+              configMapKeyRef:
+                name: collector-config
+                key: INSTRUCTOR_CONFIG
           - name: APP_NAME
             valueFrom:
               fieldRef:
