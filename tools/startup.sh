@@ -10,7 +10,7 @@ echo "${GREEN}******************************************************************
 echo "${GREEN}********************************************************************************${NC}"
 echo " ${CYAN}    Starting up your Minikube Training Environment  ${NC}"
 echo " ${CYAN}    ---------------------------------------------  ${NC}"
-echo " ${NC}    Don't worry if there are some errors displayed, this is due to   ${NC}"
+echo " ${NC}    Don't worry if there are some errors displayed   ${NC}"
 echo "${GREEN}********************************************************************************${NC}"
 echo "  "
 echo "  "
@@ -34,10 +34,6 @@ kubectl port-forward --namespace kube-system $(kubectl get po -n kube-system | g
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
 echo " ${CYAN}    Creating CNI Cilium  ${NC}"
 kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.6/install/kubernetes/quick-install.yaml > /dev/null
-
-echo "${GREEN}--------------------------------------------------------------------------------${NC}"
-echo " ${CYAN}    Cleaning up  ${NC}"
-kubectl get pods -n kube-system | grep -E "(Terminating|CrashLoopBackOff)" | awk '{print $1}' | xargs kubectl delete pod -n kube-system --force --grace-period=0
 
 
 echo "${GREEN}********************************************************************************${NC}"
