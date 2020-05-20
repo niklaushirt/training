@@ -73,13 +73,13 @@ echo " ${CYAN} Preparing your Personal Training Environment${NC}"
         kubectl apply -f ~/training/dashboard/fscollector_student_deploy.yaml
 
 
-        FOUND=1
-
-        echo "${clock} Wait for ${podName} to reach running state (4min)."
-        while [ ${FOUND} -eq 1 ]; do
-
-
-
+        FOUND=0
+        echo "${clock} Wait for Personal Training Environment to reach running state."
+        while [ ${FOUND} -eq 0 ]; do
+          FOUND=$(kubectl get pods | grep student | grep 1/1 | grep -c "")
+          echo "${clock} Still waiting for Personal Training Environment to reach running state."
+          sleep 10 
+        done 
 
         minikube service student-ui
 
