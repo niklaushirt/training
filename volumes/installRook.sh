@@ -1,4 +1,19 @@
 
+
+
+ kubectl delete -f ~/training/volumes/ceph-block-sc.yaml
+ kubectl delete -f ~/rook/cluster/examples/kubernetes/mysql.yaml
+ kubectl delete -f ~/rook/cluster/examples/kubernetes/wordpress.yaml 
+kubectl delete -f dashboard-external-http.yaml 
+kubectl delete -f cluster-test.yaml
+
+
+kubectl patch storageclass "csi-cephfs" -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
+
+
+
+
 sudo sgdisk --zap-all /dev/sdb
 
 minikube ssh "cd /bin && sudo curl -O https://raw.githubusercontent.com/ceph/ceph-docker/master/examples/kubernetes-coreos/rbd && sudo chmod +x /bin/rbd"
