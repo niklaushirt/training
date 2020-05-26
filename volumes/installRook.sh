@@ -11,6 +11,7 @@ kubectl delete -f cluster-test.yaml
 kubectl patch storageclass "csi-cephfs" -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
 
+minikube ssh "sudo mkdir -p /mnt/minikube && sudo ln -sf /mnt/minikube /var/lib/"
 
 
 
