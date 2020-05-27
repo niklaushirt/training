@@ -1,0 +1,28 @@
+{
+    "clusters": [
+      {
+        "nodes": [
+          {
+            "node": {
+              "hostnames": {
+                "manage": [
+                  "localhost"
+                ],
+                "storage": [
+                  "localhost"
+                ]
+              },
+              "zone": 1
+            },
+            "devices": [
+                {
+                    "name":"/dev/sdb1",
+                    "destroydata": false
+                }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
