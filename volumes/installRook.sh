@@ -30,6 +30,8 @@ kubectl create -f operator.yaml
 echo "    deviceFilter: sdb" >> cluster-test.yaml
 kubectl create -f cluster-test.yaml
 
+echo "    deviceFilter: sda5" >> cluster-test.yaml
+
 
 kubectl apply -f dashboard-external-http.yaml 
 minikube service -n rook-ceph rook-ceph-mgr-dashboard-external-http

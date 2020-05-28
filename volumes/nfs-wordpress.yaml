@@ -19,7 +19,7 @@ metadata:
   labels:
     app: wordpress
 spec:
-  storageClassName: my-storage-class
+  storageClassName: nfs-client
   accessModes:
   - ReadWriteOnce
   resources:

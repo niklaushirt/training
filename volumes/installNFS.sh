@@ -11,7 +11,7 @@ sudo systemctl restart nfs-kernel-server
 minikube ssh "sudo apt update && sudo apt install nfs-common -y"
 minikube ssh "echo '192.168.122.1   ubuntu' | sudo tee --append /etc/hosts"
 
-kubectl apply -f ~/training/volumes/nfs.yaml
+kubectl apply -f ~/training/volumes/nfs-provisioner.yaml
 
 
 kind: PersistentVolumeClaim
