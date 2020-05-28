@@ -1,4 +1,4 @@
-sudo sfdisk /dev/sdb < ~/training/volumes/partition.sfdisk
+sudo sfdisk /dev/sdb < ~/training/volumes/gluster-partition.sfdisk
 
 sudo apt-get install software-properties-common
 sudo add-apt-repository ppa:gluster/glusterfs-7 -y
@@ -7,15 +7,10 @@ sudo systemctl start glusterd
 sudo systemctl enable glusterd
 
 
-
-apt-get install software-properties-common
-add-apt-repository ppa:gluster/glusterfs-7
-apt-get install glusterfs-server
-
-mkfs.ext4 /dev/sdb1
-mkdir -p /data/gluster
-mount /dev/sdb1 /data/gluster
-echo "/dev/sdb1 /data/gluster ext4 defaults 0 0" | tee --append /etc/fstab
+sudo mkfs.ext4 /dev/sdb1
+sudo mkdir -p /data/gluster
+sudo mount /dev/sdb1 /data/gluster
+sudo echo "/dev/sdb1 /data/gluster ext4 defaults 0 0" | sudo tee --append /etc/fstab
 
 ps -ef | grep glusterd 
 systemctl status glusterd
@@ -24,40 +19,25 @@ gluster pool list
 
 wget https://github.com/heketi/heketi/releases/download/v9.0.0/heketi-v9.0.0.linux.amd64.tar.gz 
 tar -xzvf heketi-v9.0.0.linux.amd64.tar.gz
-sudo chmod a+rw -R heketi/heketi
+sudo chmod +x heketi/heketi*
 sudo chmod a+rw -R heketi/heketi-cli
 
-sudo mv heketi/heketi /usr/share/bin
-sudo mv heketi/heketi-cli /usr/share/bin
-
-
+sudo mv heketi/heketi /usr/local/bin
+sudo mv heketi/heketi-cli /usr/local/bin
 
 sudo groupadd --system heketi
 sudo useradd -s /sbin/nologin --system -g heketi heketi
 
 
-sudo mkdir -p /var/lib/heketi /etc/heketi /var/log/heketi
-
 sudo ssh-keygen -f /etc/heketi/heketi_key -t rsa -N '' -m PEM
 sudo chown heketi:heketi /etc/heketi/heketi_key*
 
-/etc/systemd/system/heketi.service
-[Unit]
-Description=Heketi Server
 
-[Service]
-Type=simple
-WorkingDirectory=/var/lib/heketi
-EnvironmentFile=-/etc/heketi/heketi.env
-User=heketi
-ExecStart=/usr/local/bin/heketi --config=/etc/heketi/heketi.json
-Restart=on-failure
-StandardOutput=syslog
-StandardError=syslog
 
-[Install]
-WantedBy=multi-user.target
+sudo mkdir -p /var/lib/heketi /etc/heketi /var/log/heketi
+sudo cp ~/training/volumes/gluster-heketi.json /etc/heketi/heketi.json
 
+sudo cp ~/training/volumes/gluster-heketi.service /etc/systemd/system/heketi.service
 
 
 
@@ -67,6 +47,8 @@ sudo chown -R heketi:heketi /var/lib/heketi /var/log/heketi /etc/heketi
 
 curl http://localhost:8080/hello
 
+sudo systemctl status heketi
+
 
 sed -i "s/108.168.187.157/localhost/" ./yaml/topology.json
 sed -i "s/\/dev\/xvdc/\/dev\/sdb1/" ./yaml/topology.json
@@ -74,10 +56,12 @@ sed -i "s/\/dev\/xvdc/\/dev\/sdb1/" ./yaml/topology.json
 more ./yaml/topology.json
 
 
-heketi-cli topology load --json=./yaml/topology.json
+heketi-cli topology load --json=~/training/volumes/gluster-topology.json
 
 
+sudo rm /etc/systemd/system/heketi.service
 
+sudo systemctl disable --now heketi
 
 
 
