@@ -5,108 +5,43 @@ kind: Namespace
 metadata:
   name: polaris
 ---
-# Source: polaris/templates/configmap.yaml
+# Source: polaris/templates/rbac.yaml
 apiVersion: v1
-kind: ConfigMap
+kind: ServiceAccount
 metadata:
   name: polaris
   namespace: polaris
   labels:
     app: polaris
-data:
-  config.yaml:  |
-    resources:
-      cpuRequestsMissing: warning
-      cpuLimitsMissing: warning
-      memoryRequestsMissing: warning
-      memoryLimitsMissing: warning
-    images:
-      tagNotSpecified: error
-    healthChecks:
-      readinessProbeMissing: warning
-      livenessProbeMissing: warning
-    networking:
-      hostNetworkSet: warning
-      hostPortSet: warning
-    security:
-      hostIPCSet: error
-      hostPIDSet: error
-      notReadOnlyRootFileSystem: warning
-      privilegeEscalationAllowed: error
-      runAsRootAllowed: warning
-      runAsPrivileged: error
-      capabilities:
-        error:
-          ifAnyAdded:
-            - SYS_ADMIN
-            - NET_ADMIN
-            - ALL
-        warning:
-          ifAnyAddedBeyond:
-            - CHOWN
-            - DAC_OVERRIDE
-            - FSETID
-            - FOWNER
-            - MKNOD
-            - NET_RAW
-            - SETGID
-            - SETUID
-            - SETFCAP
-            - SETPCAP
-            - NET_BIND_SERVICE
-            - SYS_CHROOT
-            - KILL
-            - AUDIT_WRITE
-    controllers_to_scan:
-      - Deployments
-      - StatefulSets
-      - DaemonSets
-      - Jobs
-      - CronJobs
-      - ReplicationControllers
-  
 ---
-# Source: polaris/templates/dashboard.rbac.yaml
-apiVersion: v1
-kind: ServiceAccount
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
 metadata:
-  name: polaris-dashboard
-  namespace: polaris
+  name: polaris-view
   labels:
     app: polaris
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+subjects:
+  - kind: ServiceAccount
+    name: polaris
+    namespace: polaris
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
-  name: polaris-dashboard
+  name: polaris
   labels:
     app: polaris
 rules:
-  - apiGroups:
-      - 'apps'
-      - 'extensions'
-    resources:
-      - 'deployments'
-      - 'statefulsets'
-      - 'daemonsets'
-    verbs:
-      - 'get'
-      - 'list'
-  - apiGroups:
-      - 'batch'
-    resources:
-      - 'jobs'
-      - 'cronjobs'
-    verbs:
-      - 'get'
-      - 'list'
+  # required by controller-runtime code doing a cluster wide lookup
+  # when it seems namespace would suffice
   - apiGroups:
       - ''
     resources:
       - 'nodes'
-      - 'namespaces'
-      - 'pods'
-      - 'replicationcontrollers'
     verbs:
       - 'get'
       - 'list'
@@ -114,17 +49,18 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
-  name: polaris-dashboard
+  name: polaris
   labels:
     app: polaris
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: polaris-dashboard
+  name: polaris
 subjects:
   - kind: ServiceAccount
-    name: polaris-dashboard
+    name: polaris
     namespace: polaris
+
 ---
 # Source: polaris/templates/dashboard.service.yaml
 apiVersion: v1
@@ -137,7 +73,7 @@ metadata:
   annotations:
 spec:
   ports:
-  - name: dashboard
+  - name: http-dashboard
     port: 80
     protocol: TCP
     targetPort: 8080
@@ -163,23 +99,15 @@ spec:
       component: dashboard
   template:
     metadata:
-      annotations:
-        checksum/config: '8aa5a565fba7a2db98d46752087de8c1dcc83b70cd762c5829d5ba01270d54a2'
       labels:
         app: polaris
         component: dashboard
     spec:
-      volumes:
-      - name: config
-        configMap:
-          name: polaris
       containers:
       - command:
         - polaris
-        - --dashboard
-        - --config
-        - /opt/app/config.yaml
-        image: 'quay.io/fairwinds/polaris:0.6'
+        - dashboard
+        image: 'quay.io/fairwinds/polaris:1.0'
         imagePullPolicy: 'Always'
         name: dashboard
         ports:
@@ -211,12 +139,7 @@ spec:
           capabilities:
             drop:
               - ALL
-        volumeMounts:
-        - name: config
-          mountPath: /opt/app/config.yaml
-          subPath: config.yaml
-          readOnly: true
-      serviceAccountName: polaris-dashboard
+      serviceAccountName: polaris
       nodeSelector:
       tolerations:
 ---
@@ -224,6 +147,10 @@ spec:
 
 ---
 # Source: polaris/templates/audit.rbac.yaml
+
+---
+# Source: polaris/templates/configmap.yaml
+
 
 ---
 # Source: polaris/templates/ingress.yaml

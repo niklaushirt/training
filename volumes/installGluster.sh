@@ -13,8 +13,8 @@ sudo mount /dev/sdb1 /data/gluster
 sudo echo "/dev/sdb1 /data/gluster ext4 defaults 0 0" | sudo tee --append /etc/fstab
 
 ps -ef | grep glusterd 
-systemctl status glusterd
-gluster pool list
+sudo systemctl status glusterd
+sudo gluster pool list
 
 
 wget https://github.com/heketi/heketi/releases/download/v9.0.0/heketi-v9.0.0.linux.amd64.tar.gz 
