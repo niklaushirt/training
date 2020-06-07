@@ -8,8 +8,6 @@ spec:
       type: git
     - name: web-image
       type: image
-    - name: local-cluster
-      type: cluster
   params:
     - name: image-version
       type: string
