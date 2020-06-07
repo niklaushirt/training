@@ -21,7 +21,4 @@ spec:
       value: "1234-dev"
     - name: environment
       value: "dev"
-    - name: cluster-url
-      value: https://c100-e.eu-de.containers.cloud.ibm.com:xxxx
-    - name: cluster-token
-      value: xxx
+

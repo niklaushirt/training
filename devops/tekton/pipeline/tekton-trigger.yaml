@@ -84,17 +84,4 @@ spec:
         - name:  git-pipeline-local-binding
       template:
         name: git-pipeline-local-run
----
-kind: Route
-apiVersion: route.openshift.io/v1
-metadata:
-  name: github
-  namespace: oiz-demo-pipeline
-spec:
-  to:
-    kind: Service
-    name: el-github-listener-interceptor
-    weight: 100
-  port:
-    targetPort: http-listener
-  wildcardPolicy: None
+
