@@ -18,4 +18,4 @@ spec:
   type: image
   params:
     - name: url
-      value: quay.io/niklaushirtibm/wordpress
+      value: docker.io/niklaushirtibm/tekton-app

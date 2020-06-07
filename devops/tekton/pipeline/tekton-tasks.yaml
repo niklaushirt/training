@@ -4,7 +4,7 @@ metadata:
   name: build-docker-image-from-git-source
 spec:
   params:
-    - default: $(resources.inputs.docker-source.path)/src/Dockerfile
+    - default: $(resources.inputs.docker-source.path)/demo-app/k8sdemo/Dockerfile
       description: The path to the dockerfile to build
       name: pathToDockerFile
       type: string
