@@ -1,0 +1,67 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: tekton-pipeline
+spec:
+  resources:
+    - name: source-repo
+      type: git
+    - name: web-image
+      type: image
+    - name: local-cluster
+      type: cluster
+  params:
+    - name: image-version
+      type: string
+    - name: environment
+      type: string
+    - name: cluster-url
+      type: string
+      default: $(resources.local-cluster.url)
+    - name: cluster-token
+      type: string
+      default: $(resources.local-cluster.token)
+  tasks:
+    - name: build-tekton-demo
+      taskRef:
+        name: build-docker-image-from-git-source
+      resources:
+        inputs:
+          - name: docker-source
+            resource: source-repo
+        outputs:
+          - name: builtImage
+            resource: web-image
+      params:
+      - name: environment
+        value: $(params.environment)        
+      - name: image-version
+        value: $(params.image-version)
+
+
+    - name: deploy-dev
+      taskRef:
+        name: deploy-using-kubectl
+      runAfter:
+        - build-tekton-demo
+      resources:
+        inputs:
+          - name: kubernetes-source
+            resource: source-repo
+          - name: image
+            resource: web-image
+            from:
+              - build-tekton-demo
+      params:
+        - name: path
+          value: /workspace/kubernetes-source/deploy/$(params.environment) #configure: may change according to your source
+        - name: yamlPathToImage
+          value: "spec.template.spec.containers[0].image"
+        - name: environment
+          value: $(params.environment)      
+        - name: image-version
+          value: $(params.image-version)
+        - name: cluster-url
+          value: $(params.cluster-url)  
+        - name: cluster-token
+          value: $(params.cluster-token)  

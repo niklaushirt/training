@@ -1,0 +1,220 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-docker-image-from-git-source
+spec:
+  params:
+    - default: $(resources.inputs.docker-source.path)/src/Dockerfile
+      description: The path to the dockerfile to build
+      name: pathToDockerFile
+      type: string
+    - default: $(resources.inputs.docker-source.path)/src
+      description: |
+        The build context used by Kaniko
+        (https://github.com/GoogleContainerTools/kaniko#kaniko-build-contexts)
+      name: pathToContext
+      type: string
+    - name: image-version
+      type: string
+    - name: environment
+      type: string
+      description: dev/test/prod
+  resources:
+    inputs:
+      - name: docker-source
+        type: git
+    outputs:
+      - name: builtImage
+        type: image
+  steps:
+    - image: busybox
+      name: show-dockerfile
+      resources: {}
+      script: cat $(params.pathToDockerFile)
+    - image: busybox
+      name: docker-image
+      resources: {}
+      script: echo $(resources.outputs.builtImage.url):$(params.image-version)
+    - args:
+        - '--dockerfile=$(params.pathToDockerFile)'
+        - '--destination=$(resources.outputs.builtImage.url):$(params.image-version)'
+        - '--context=$(params.pathToContext)'
+      command:
+        - /kaniko/executor
+      env:
+        - name: DOCKER_CONFIG
+          value: /tekton/home/.docker/
+      image: 'gcr.io/kaniko-project/executor:v0.17.1'
+      name: build-and-push
+      resources: {}
+      securityContext:
+        runAsUser: 0
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: deploy-using-kubectl
+spec:
+  params:
+    - name: environment
+      type: string
+    - name: image-version
+      type: string
+      description: dev/test/prod
+    - name: cluster-url
+      type: string
+    - name: cluster-token
+      type: string
+      description: dev/test/prod
+    - name: path
+      type: string
+      description: Path to the manifest to apply
+    - name: yamlPathToImage
+      type: string
+      description: |
+        The path to the image to replace in the yaml manifest (arg to yq)
+  resources:
+    inputs:
+      - name: kubernetes-source
+        type: git
+      - name: image
+        type: image
+  steps:
+    - name: environment
+      image: busybox
+      script: echo $(params.environment)
+    - name: list-dir
+      image: busybox
+      script: cd kubernetes-source && ls
+    - name: replace-image
+      image: mikefarah/yq
+      command: ["yq"]
+      args:
+        - "w"
+        - "-i"
+        - "$(params.path)/deployment.yaml"
+        - "$(params.yamlPathToImage)"
+        - "$(resources.inputs.image.url):$(params.image-version)"
+    - name: finalyaml
+      image: busybox
+      script: cat $(params.path)/deployment.yaml
+    - name: cluster-login
+      image: quay.io/niklaushirtibm/oc:1.0.0
+      script: oc login --token=$(params.cluster-token) --server=$(params.cluster-url)
+    - name: depolying-to-cluster
+      image: busybox
+      script: echo $(params.cluster-url)
+    - name: run-kubectl
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "apply"
+        - "-f"
+        - "$(params.path)"
+        - "-n"
+        - "demo-oiz-$(params.environment)"
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: smoke-tests
+spec:
+  params:
+    - name: environment
+      type: string
+    - name: image-version
+      type: string
+      description: dev/test/prod
+    - name: cluster-url
+      type: string
+    - name: cluster-token
+      type: string
+      description: dev/test/prod
+    - name: path
+      type: string
+      description: Path to the manifest to apply
+    - name: yamlPathToImage
+      type: string
+      description: |
+        The path to the image to replace in the yaml manifest (arg to yq)
+  resources:
+    inputs:
+      - name: kubernetes-source
+        type: git
+      - name: image
+        type: image
+  steps:
+    - name: smoke-test-pods-running
+      image: quay.io/niklaushirtibm/oc:1.0.0
+      script: oc get pods -n demo-oiz-dev | grep wordpress-
+
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: integration-tests
+spec:
+  params:
+    - name: environment
+      type: string
+    - name: image-version
+      type: string
+      description: dev/test/prod
+    - name: cluster-url
+      type: string
+    - name: cluster-token
+      type: string
+      description: dev/test/prod
+    - name: path
+      type: string
+      description: Path to the manifest to apply
+    - name: yamlPathToImage
+      type: string
+      description: |
+        The path to the image to replace in the yaml manifest (arg to yq)
+  resources:
+    inputs:
+      - name: kubernetes-source
+        type: git
+      - name: image
+        type: image
+  steps:
+    - name: integration-test-pods-running
+      image: quay.io/niklaushirtibm/oc:1.0.0
+      script: oc get pods -n demo-oiz-test | grep wordpress-
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: output-vars
+spec:
+  params:
+    - name: environment
+      type: string
+    - name: image-version
+      type: string
+      description: dev/test/prod
+    - name: cluster-url
+      type: string
+    - name: cluster-token
+      type: string
+      description: dev/test/prod
+    - name: path
+      type: string
+      description: Path to the manifest to apply
+    - name: yamlPathToImage
+      type: string
+      description: |
+        The path to the image to replace in the yaml manifest (arg to yq)
+  resources:
+    inputs:
+      - name: kubernetes-source
+        type: git
+      - name: image
+        type: image
+  steps:
+    - image: busybox
+      name: output1
+      resources: {}
+      script: echo $(params.cluster-token):$(params.cluster-url):$(params.environment):$(params.image-version)
+           
