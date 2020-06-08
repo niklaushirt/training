@@ -1,6 +1,6 @@
 #/bin/bash
 
-./startEnvironment.sh
+./training/tools/startEnvironment.sh
 
 ./training/pte/pte.sh
 
