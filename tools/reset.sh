@@ -2,4 +2,4 @@
 
 minikube delete
 
-./training/tools/startup.sh 
+./training/tools/welcome.sh 
