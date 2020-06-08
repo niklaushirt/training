@@ -6,6 +6,7 @@ spec:
   serviceAccountName: tekton-service-account
   pipelineRef:
     name: tekton-pipeline
+
   resources:
     - name: source-repo
       resourceRef:
@@ -13,9 +14,7 @@ spec:
     - name: web-image
       resourceRef:
         name: training-tekton-image
-    - name: local-cluster
-      resourceRef:
-        name: local-cluster
+        
   params:
     - name: image-version
       value: "1234-dev"

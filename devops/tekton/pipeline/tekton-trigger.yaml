@@ -18,11 +18,12 @@ spec:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
-        name: pipeline-run-local-1
+        name: pipeline-run-local-$(params.gitrevision)
       spec:
         serviceAccountName: tekton-service-account
         pipelineRef:
           name: tekton-pipeline
+
         resources:
           - name: source-repo
             resourceRef:
@@ -30,19 +31,12 @@ spec:
           - name: web-image
             resourceRef:
               name: training-tekton-image
-          - name: local-cluster
-            resourceRef:
-              name: local-cluster
+              
         params:
           - name: image-version
             value: "1234-dev"
           - name: environment
             value: "dev"
-          - name: cluster-url
-            value: https://c100-e.eu-de.containers.cloud.ibm.com:xxxx
-          - name: cluster-token
-            value: xxx
-
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
@@ -70,7 +64,7 @@ kind: EventListener
 metadata:
   name: github-listener-interceptor
 spec:
-  serviceAccountName: oiz-demo-service-account
+  serviceAccountName: tekton-service-account
   triggers:
     - name: github-listener
       interceptors:

@@ -3,22 +3,7 @@ kind: Task
 metadata:
   name: build-docker-image-from-git-source
 spec:
-  params:
-    - default: $(resources.inputs.docker-source.path)/demo-app/k8sdemo/Dockerfile
-      description: The path to the dockerfile to build
-      name: pathToDockerFile
-      type: string
-    - default: $(resources.inputs.docker-source.path)/src
-      description: |
-        The build context used by Kaniko
-        (https://github.com/GoogleContainerTools/kaniko#kaniko-build-contexts)
-      name: pathToContext
-      type: string
-    - name: image-version
-      type: string
-    - name: environment
-      type: string
-      description: dev/test/prod
+
   resources:
     inputs:
       - name: docker-source
@@ -26,16 +11,35 @@ spec:
     outputs:
       - name: builtImage
         type: image
+
+  params:
+    - name: pathToDockerFile
+      type: string
+      default: $(resources.inputs.docker-source.path)/demo-app/k8sdemo/Dockerfile
+    - name: pathToContext
+      type: string
+      default: $(resources.inputs.docker-source.path)/demo-app/k8sdemo/Dockerfile
+    - name: image-version
+      type: string
+    - name: environment
+      type: string
+
   steps:
-    - image: busybox
-      name: show-dockerfile
+
+    - name: show-dockerfile
+      image: busybox
       resources: {}
       script: cat $(params.pathToDockerFile)
-    - image: busybox
-      name: docker-image
+
+
+    - name: show-docker-image-name
+      image: busybox
       resources: {}
       script: echo $(resources.outputs.builtImage.url):$(params.image-version)
-    - args:
+
+
+    - name: build-and-push
+      args:
         - '--dockerfile=$(params.pathToDockerFile)'
         - '--destination=$(resources.outputs.builtImage.url):$(params.image-version)'
         - '--context=$(params.pathToContext)'
@@ -45,42 +49,42 @@ spec:
         - name: DOCKER_CONFIG
           value: /tekton/home/.docker/
       image: 'gcr.io/kaniko-project/executor:v0.17.1'
-      name: build-and-push
+      
       resources: {}
       securityContext:
         runAsUser: 0
 ---
+
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: deploy-using-kubectl
 spec:
-  params:
-    - name: environment
-      type: string
-    - name: image-version
-      type: string
-      description: dev/test/prod
-    - name: path
-      type: string
-      description: Path to the manifest to apply
-    - name: yamlPathToImage
-      type: string
-      description: |
-        The path to the image to replace in the yaml manifest (arg to yq)
+
   resources:
     inputs:
       - name: kubernetes-source
         type: git
       - name: image
         type: image
+
+  params:
+    - name: environment
+      type: string
+    - name: image-version
+      type: string
+    - name: path
+      type: string
+    - name: yamlPathToImage
+      type: string
+
   steps:
+
     - name: environment
       image: busybox
       script: echo $(params.environment)
-    - name: list-dir
-      image: busybox
-      script: cd kubernetes-source && ls
+
+
     - name: replace-image
       image: mikefarah/yq
       command: ["yq"]
@@ -90,9 +94,13 @@ spec:
         - "$(params.path)/deployment.yaml"
         - "$(params.yamlPathToImage)"
         - "$(resources.inputs.image.url):$(params.image-version)"
-    - name: finalyaml
+
+
+    - name: show-finalyaml
       image: busybox
       script: cat $(params.path)/deployment.yaml
+      
+      
     - name: run-kubectl
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
@@ -101,4 +109,4 @@ spec:
         - "-f"
         - "$(params.path)"
         - "-n"
-        - "demo-oiz-$(params.environment)"
+        - "training-$(params.environment)"

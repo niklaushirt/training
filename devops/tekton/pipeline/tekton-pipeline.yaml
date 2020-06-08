@@ -3,17 +3,22 @@ kind: Pipeline
 metadata:
   name: tekton-pipeline
 spec:
+
   resources:
     - name: source-repo
       type: git
     - name: web-image
       type: image
+
   params:
     - name: image-version
       type: string
     - name: environment
       type: string
+
+
   tasks:
+
     - name: build-tekton-demo
       taskRef:
         name: build-docker-image-from-git-source
@@ -24,6 +29,7 @@ spec:
         outputs:
           - name: builtImage
             resource: web-image
+
       params:
       - name: environment
         value: $(params.environment)        
@@ -44,9 +50,10 @@ spec:
             resource: web-image
             from:
               - build-tekton-demo
+
       params:
         - name: path
-          value: /workspace/kubernetes-source/deploy/$(params.environment) #configure: may change according to your source
+          value: /workspace/kubernetes-source/deploy/$(params.environment)
         - name: yamlPathToImage
           value: "spec.template.spec.containers[0].image"
         - name: environment

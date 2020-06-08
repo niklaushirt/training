@@ -10,6 +10,8 @@ spec:
     - name: url
       value: https://github.com/niklaushirt/training
 ---
+
+
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -18,4 +20,4 @@ spec:
   type: image
   params:
     - name: url
-      value: registry-1.docker.io/niklaushirt/tekton-app
+      value: registry.kube-system.svc.cluster.local/tekton-app
