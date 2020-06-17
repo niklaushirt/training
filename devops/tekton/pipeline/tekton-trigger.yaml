@@ -35,8 +35,8 @@ spec:
         params:
           - name: image-version
             value: "1234-dev"
-          - name: environment
-            value: "dev"
+          - name: namespace
+            value: "default"
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding

@@ -21,7 +21,7 @@ spec:
       default: $(resources.inputs.docker-source.path)/demo-app/k8sdemo/Dockerfile
     - name: image-version
       type: string
-    - name: environment
+    - name: namespace
       type: string
 
   steps:
@@ -69,7 +69,7 @@ spec:
         type: image
 
   params:
-    - name: environment
+    - name: namespace
       type: string
     - name: image-version
       type: string
@@ -80,9 +80,9 @@ spec:
 
   steps:
 
-    - name: environment
+    - name: namespace
       image: busybox
-      script: echo $(params.environment)
+      script: echo $(params.namespace)
 
 
     - name: replace-image
@@ -91,16 +91,16 @@ spec:
       args:
         - "w"
         - "-i"
-        - "$(params.path)/deployment.yaml"
+        - "$(params.path)/demoapp.yaml"
         - "$(params.yamlPathToImage)"
         - "$(resources.inputs.image.url):$(params.image-version)"
 
 
     - name: show-finalyaml
       image: busybox
-      script: cat $(params.path)/deployment.yaml
+      script: cat $(params.path)/demoapp.yaml
       
-      
+
     - name: run-kubectl
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
@@ -109,4 +109,4 @@ spec:
         - "-f"
         - "$(params.path)"
         - "-n"
-        - "training-$(params.environment)"
+        - "$(params.namespace)"

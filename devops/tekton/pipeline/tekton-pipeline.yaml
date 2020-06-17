@@ -13,7 +13,7 @@ spec:
   params:
     - name: image-version
       type: string
-    - name: environment
+    - name: namespace
       type: string
 
 
@@ -31,8 +31,8 @@ spec:
             resource: web-image
 
       params:
-      - name: environment
-        value: $(params.environment)        
+      - name: namespace
+        value: $(params.namespace)        
       - name: image-version
         value: $(params.image-version)
 
@@ -53,10 +53,10 @@ spec:
 
       params:
         - name: path
-          value: /workspace/kubernetes-source/deploy/$(params.environment)
+          value: /workspace/kubernetes-source/deployment/
         - name: yamlPathToImage
           value: "spec.template.spec.containers[0].image"
-        - name: environment
-          value: $(params.environment)      
+        - name: namespace
+          value: $(params.namespace)      
         - name: image-version
           value: $(params.image-version)

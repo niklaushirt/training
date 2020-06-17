@@ -4,3 +4,4 @@ metadata:
   name: tekton-service-account
 secrets:
   - name: regcred
+---
