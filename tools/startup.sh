@@ -11,7 +11,7 @@ echo "  "
 
 
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
-echo " ${CYAN}    Starting up Docker ${NC}"
+echo " ${CYAN}    Starting up Docker Portainer${NC}"
 docker start portainer > /dev/null
 
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
