@@ -1,17 +1,44 @@
 https://github.com/loadimpact/k6
 
 
-echo "Adapt Environment"
-# Set VM max map count (see max_map_count https://www.kernel.org/doc/Documentation/sysctl/vm.txt)
+
+kubectl create -f ~/training/deployment/demoapp.yaml
+kubectl create -f ~/training/deployment/demoapp-service.yaml
+kubectl create -f ~/training/deployment/demoapp-backend.yaml
+kubectl create -f ~/training/deployment/demoapp-backend-service.yaml
+
+docker pull niklaushirt/grpc-api:1.0.0
+docker pull niklaushirt/grpc-server:1.0.0
+docker pull niklaushirt/grpcdemo:1.0.0
+
+
+
+
+firefox http://192.168.39.52:32123
+firefox http://localhost:8089
+
 sudo sysctl -w vm.max_map_count=262144
-
-sudo cat <<EOB >>/etc/sysctl.conf
-vm.max_map_count=262144
-EOB
-
 ulimit -n 65535
 
 sudo apt install python3-pip
+pip3 install locust
+
+
+import random
+from locust import HttpUser, task, between
+
+class QuickstartUser(HttpUser):
+    wait_time = between(0, 1)
+
+    @task
+    def index_page(self):
+        response = self.client.get("/")
+        print("Response status code:", response.status_code)
+
+
+
+locust -f locust.py
+
 
 
 

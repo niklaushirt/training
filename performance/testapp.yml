@@ -1,0 +1,132 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grpc-server
+  template:
+    metadata:
+      labels:
+        app: grpc-server
+    spec:
+      containers:
+      - name: grpc-server
+        image: niklaushirt/grpc-server:1.0.0
+        imagePullPolicy: IfNotPresent 
+        env:
+        - name: BACKEND_MESSAGE
+          value: "Hello from the Backend"
+        - name: GRPC_PORT
+          value: "50061"
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: grpc-server-service
+spec:
+  selector:
+    app: grpc-server
+  ports:
+    - protocol: TCP
+      port: 50061
+      targetPort: 50061
+      nodePort: 32302
+  type: NodePort
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grpc-api
+  template:
+    metadata:
+      labels:
+        app: grpc-api
+    spec:
+      containers:
+      - name: grpc-api
+        image: niklaushirt/grpc-api:1.0.0
+        imagePullPolicy: IfNotPresent 
+        env:
+        - name: GRPC_URL
+          value: "grpc-server-service.grpcdemo-app"
+        - name: GRPC_PORT
+          value: "50061"
+        - name: API_REST_PORT
+          value: "8090"
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: grpc-api-service
+spec:
+  selector:
+    app: grpc-api
+  ports:
+    - protocol: TCP
+      port: 8090
+      targetPort: 8090
+      nodePort: 32301
+  type: NodePort
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grpc-web
+  template:
+    metadata:
+      labels:
+        app: grpc-web
+    spec:
+      containers:
+      - name: grpc-web
+        image: niklaushirt/grpcdemo:1.0.0
+        imagePullPolicy: IfNotPresent 
+        ports:
+        - containerPort: 3000
+        env:
+          - name: PORT
+            value : "3000"
+          - name: APPLICATION_NAME
+            value : "grpc-web"
+          - name: BACKEND_URL
+            value : "http://grpc-api-route-grpcdemo-app.apps.91.121.172.228.nip.io/get"
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: grpc-web-service
+spec:
+  selector:
+    app: grpc-web
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      nodePort: 32300
+  type: NodePort
+
+
+
+
+
