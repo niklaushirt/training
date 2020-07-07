@@ -1,5 +1,10 @@
 #/bin/bash
 
+cd ./training
+gitrefresh
+cd
+
+
 ./training/tools/startEnvironment.sh
 
 ./training/pte/pte.sh
