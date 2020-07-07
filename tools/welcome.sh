@@ -1,7 +1,7 @@
 #/bin/bash
 
 cd ./training
-gitrefresh
+git checkout origin/master -f | git checkout master -f | git pull origin master
 cd
 
 
