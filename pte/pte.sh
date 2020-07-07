@@ -13,7 +13,7 @@
 
 
 export TRAINING_INSTRUCTOR="http://dashboard-default.cp4mcp-demo-002-a376efc1170b9b8ace6422196c51e491-0000.us-south.containers.appdomain.cloud"
-export PTE_IMAGE=niklaushirt/pte:training2020-kws107
+export PTE_IMAGE=niklaushirt/pte:training2020-kws108
 
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
