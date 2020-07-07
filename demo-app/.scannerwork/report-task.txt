@@ -1,6 +1,0 @@
-projectKey=test
-serverUrl=https://sonarqube-sonarqube.cp4mcp-demo-006-a376efc1170b9b8ace6422196c51e491-0000.eu-de.containers.appdomain.cloud
-serverVersion=8.1.0.31237
-dashboardUrl=https://sonarqube-sonarqube.cp4mcp-demo-006-a376efc1170b9b8ace6422196c51e491-0000.eu-de.containers.appdomain.cloud/dashboard?id=test
-ceTaskId=AXMkehupapS0ipj6J3pG
-ceTaskUrl=https://sonarqube-sonarqube.cp4mcp-demo-006-a376efc1170b9b8ace6422196c51e491-0000.eu-de.containers.appdomain.cloud/api/ce/task?id=AXMkehupapS0ipj6J3pG
