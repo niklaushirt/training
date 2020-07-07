@@ -1,7 +1,9 @@
 #/bin/bash
 
 cd ./training
-git checkout origin/master -f | git checkout master -f | git pull origin master
+git checkout origin/master -f
+git checkout master -f 
+git pull origin master
 cd
 
 
