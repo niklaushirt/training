@@ -9,7 +9,7 @@ spec:
   - fault:
       abort:
         httpStatus: 555
-        percent: 100
+        percent: 50
     route:
     - destination:
         host: details
@@ -18,14 +18,3 @@ spec:
     - destination:
         host: details
         subset: v1
----
-apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
-metadata:
-  name: details
-spec:
-  host: details
-  subsets:
-  - name: v1
-    labels:
-      version: v1

@@ -11,6 +11,6 @@ spec:
         host: reviews
         subset: v1
     mirror:
-      host: nginx
+      host: reviews
       subset: v2
     mirror_percent: 100
