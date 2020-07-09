@@ -8,7 +8,7 @@ spec:
   http:
   - fault:
       abort:
-        httpStatus: 555
+        httpStatus: 500
         percentage:
           value: 50
     route:
@@ -30,4 +30,3 @@ spec:
   - name: v1
     labels:
       version: v1
-      
