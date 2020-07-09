@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: open-liberty
+  namespace: default
+  labels:
+    app: open-liberty
+spec:
+  selector:
+    matchLabels:
+      app: open-liberty
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: "30%"
+      maxSurge: "90%"
+  template:
+    metadata:
+      labels:
+        app: open-liberty
+        version: current
+    spec:
+      containers:
+      - name: open-liberty
+        image: openliberty/open-liberty:kernel-java8-openj9-ubi
+        imagePullPolicy: IfNotPresent 
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 9080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 1
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 9080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 1
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: "150m"
+            memory: "150Mi"
+          limits:
+            cpu: "1"
+            memory: "500Mi"

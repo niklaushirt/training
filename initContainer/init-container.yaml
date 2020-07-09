@@ -29,6 +29,18 @@ spec:
 
       # This container is run during pod initialization
       initContainers:
+
+      # Sleep for 2 Seconds
+      - name: sleep-1
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command: ['sh', '-c', 'echo sleep-1 start; sleep 2;echo sleep-1 complete;']
+
+      # Sleep again for 2 Seconds
+      - name: sleep-2
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command: ['sh', '-c', 'echo sleep-2 start; sleep 2;echo sleep-2 complete;']
       - name: install
         image: busybox
 
@@ -41,6 +53,7 @@ spec:
         volumeMounts:
         - name: workdir
           mountPath: "/work-dir"
+
       dnsPolicy: Default
       volumes:
       - name: workdir
