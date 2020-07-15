@@ -13,4 +13,4 @@ This is **untested** and I cannot guarantee that all the Labs will be working 10
 ## Cloud Installation
 
 
-[https://github.com/niklaushirt/training/blob/master/standalone/README-CLOUD.md](https://github.com/niklaushirt/training/blob/master/standalone/README-STANDALONE.md)
+[https://github.com/niklaushirt/training/blob/master/standalone/README-CLOUD.md](https://github.com/niklaushirt/training/blob/master/standalone/README-CLOUD.md)
