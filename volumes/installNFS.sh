@@ -13,7 +13,6 @@ minikube ssh "echo '192.168.122.1   ubuntu' | sudo tee --append /etc/hosts"
 
 kubectl apply -f ~/training/volumes/nfs-provisioner.yaml
 
-
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -27,14 +26,14 @@ spec:
       storage: 1Mi
 
 
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: ceph-test-pvc-sc
-spec:
-  storageClassName: nfs-client
-  accessModes:
-    - ReadWriteMany 
-  resources:
-    requests:
-      storage: 50Mi
+
+kubectl apply -f training/volumes/nfs-claim.yaml 
+
+
+
+kubectl apply -f training/volumes/nfs-wordpress.yaml
+
+kubectl apply -f training/volumes/nfs-mysql.yaml 
+
+
+a@b.c

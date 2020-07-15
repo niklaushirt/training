@@ -7,9 +7,9 @@ metadata:
     app: nfs-client-provisioner
     chart: nfs-client-provisioner-1.2.8
     heritage: Tiller
-    release: release-name
+    release: nfs
   name: nfs-client
-provisioner: cluster.local/release-name-nfs-client-provisioner
+provisioner: cluster.local/nfs-nfs-client-provisioner
 allowVolumeExpansion: true
 reclaimPolicy: Delete
 parameters:
@@ -25,8 +25,8 @@ metadata:
     app: nfs-client-provisioner
     chart: nfs-client-provisioner-1.2.8
     heritage: Tiller
-    release: release-name
-  name: release-name-nfs-client-provisioner
+    release: nfs
+  name: nfs-nfs-client-provisioner
 ---
 # Source: nfs-client-provisioner/templates/clusterrole.yaml
 
@@ -37,8 +37,8 @@ metadata:
     app: nfs-client-provisioner
     chart: nfs-client-provisioner-1.2.8
     heritage: Tiller
-    release: release-name
-  name: release-name-nfs-client-provisioner-runner
+    release: nfs
+  name: nfs-nfs-client-provisioner-runner
 rules:
 - apiGroups:
   - '*'
@@ -62,15 +62,15 @@ metadata:
     app: nfs-client-provisioner
     chart: nfs-client-provisioner-1.2.8
     heritage: Tiller
-    release: release-name
-  name: run-release-name-nfs-client-provisioner
+    release: nfs
+  name: run-nfs-nfs-client-provisioner
 subjects:
   - kind: ServiceAccount
-    name: release-name-nfs-client-provisioner
+    name: nfs-nfs-client-provisioner
     namespace: default
 roleRef:
   kind: ClusterRole
-  name: release-name-nfs-client-provisioner-runner
+  name: nfs-nfs-client-provisioner-runner
   apiGroup: rbac.authorization.k8s.io
 
 ---
@@ -83,8 +83,8 @@ metadata:
     app: nfs-client-provisioner
     chart: nfs-client-provisioner-1.2.8
     heritage: Tiller
-    release: release-name
-  name: leader-locking-release-name-nfs-client-provisioner
+    release: nfs
+  name: leader-locking-nfs-nfs-client-provisioner
 rules:
   - apiGroups: [""]
     resources: ["endpoints"]
@@ -100,15 +100,15 @@ metadata:
     app: nfs-client-provisioner
     chart: nfs-client-provisioner-1.2.8
     heritage: Tiller
-    release: release-name
-  name: leader-locking-release-name-nfs-client-provisioner
+    release: nfs
+  name: leader-locking-nfs-nfs-client-provisioner
 subjects:
   - kind: ServiceAccount
-    name: release-name-nfs-client-provisioner
+    name: nfs-nfs-client-provisioner
     namespace: default
 roleRef:
   kind: Role
-  name: leader-locking-release-name-nfs-client-provisioner
+  name: leader-locking-nfs-nfs-client-provisioner
   apiGroup: rbac.authorization.k8s.io
 
 ---
@@ -116,12 +116,12 @@ roleRef:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: release-name-nfs-client-provisioner
+  name: nfs-nfs-client-provisioner
   labels:
     app: nfs-client-provisioner
     chart: nfs-client-provisioner-1.2.8
     heritage: Tiller
-    release: release-name
+    release: nfs
 spec:
   replicas: 1
   strategy:
@@ -129,15 +129,15 @@ spec:
   selector:
     matchLabels:
       app: nfs-client-provisioner
-      release: release-name
+      release: nfs
   template:
     metadata:
       annotations:
       labels:
         app: nfs-client-provisioner
-        release: release-name
+        release: nfs
     spec:
-      serviceAccountName: release-name-nfs-client-provisioner
+      serviceAccountName: nfs-nfs-client-provisioner
       containers:
         - name: nfs-client-provisioner
           image: "quay.io/external_storage/nfs-client-provisioner:v3.1.0-k8s1.11"
@@ -147,7 +147,7 @@ spec:
               mountPath: /persistentvolumes
           env:
             - name: PROVISIONER_NAME
-              value: cluster.local/release-name-nfs-client-provisioner
+              value: cluster.local/nfs-nfs-client-provisioner
             - name: NFS_SERVER
               value: ubuntu
             - name: NFS_PATH
