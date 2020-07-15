@@ -1,6 +1,0 @@
-label: dos
-label-id: 0x4491a934
-device: /dev/sdb
-unit: sectors
-
-/dev/sdb1 : start=        2048, size=  1486092288, type=83
