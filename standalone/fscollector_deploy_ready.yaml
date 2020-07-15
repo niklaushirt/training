@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: student-ui
-        image: niklaushirt/pte:training2020-kws104
+        image: niklaushirt/pte:training2020-kws110
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
@@ -70,6 +70,7 @@ spec:
   ports:
     - port: 80
       targetPort: 3000
+      nodePort: 31222
       protocol: TCP
       name: student-ui
   selector:

@@ -159,9 +159,10 @@ If you have Docker Desktop running please shut it down first, we'll use Docker i
 ## Part 6 - Standalone installation
 
 This describes how to setup an environment on your local PC. 
-This is untested and I cannot guarantee that all the Labs will be working 100%.
+This is **untested** and I cannot guarantee that all the Labs will be working 100%.
 
 You must have the following setup on your PC:
+
 * Minikube
 * Docker 
 * Git
@@ -178,4 +179,4 @@ You must have the following setup on your PC:
 
 3. Run the preparation script
 
-	`./welcome.sh`
+	`./standalone.sh`

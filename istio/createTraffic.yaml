@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: istio-traffic-generator
+  labels:
+    app: istio-traffic-generator
+spec:
+  replicas: 1
+  strategy: 
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: istio-traffic-generator
+  template:
+    metadata:
+      labels:
+        app: istio-traffic-generator
+    spec:
+      containers:
+      - name: istio-traffic-generator
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        
+        command: ['sh', '-c', 'for i in `seq 1 400000`; do wget http://istio-ingressgateway.istio-system/productpage; done']

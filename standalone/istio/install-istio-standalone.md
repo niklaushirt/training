@@ -2,6 +2,9 @@
 
 You can find more detailed information here: [https://istio.io/latest/docs/setup/getting-started/](https://istio.io/latest/docs/setup/getting-started/)
 
+Before starting, make sure you have followed the steps in the 
+
+
 ## 1) Create Kubernetes Cluster on IBM Cloud 
 
 1. Go to [https://cloud.ibm.com](https://cloud.ibm.com)
@@ -116,8 +119,14 @@ Before you continue, make sure all the pods are deployed and are either in the *
 
 Congratulations! You successfully installed Istio into your cluster.
 
+## 4) Download the Lab content
 
+If you are not working in the VM you have to pull down the Lab content:
 
-## 4) Continue with the Labs
+```bash
+    git clone https://github.com/niklaushirt/training.git    
+```
+
+## 5) Continue with the Labs
 
 For the rest of the Lab you can follow up starting with `Lab 3 - Deploy sample BookInfo application with Istio sidecar injected`

@@ -20,4 +20,4 @@ spec:
   type: image
   params:
     - name: url
-      value: registry.kube-system.svc.cluster.local/tekton-app
+      value: kube-registry.kube-system:5000/tekton-app
