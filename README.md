@@ -1,6 +1,11 @@
 
 # Prerequisites for the Lab
 
+
+Using the provided Lab VM is the easiest way to get started with the Labs for the training.
+
+For this you'll need:
+
 - Internet Access
 - PC with at least:
   - 4 Core CPU
@@ -8,8 +13,10 @@
   - 40GB of free Disk Space
 
 
+If you want to use your own environment (IBM Cloud or natively on your PC) you can follow the instructions here:
+[https://github.com/niklaushirt/training/tree/master/standalone](https://github.com/niklaushirt/training/tree/master/standalone)
 
-
+This is untested and I cannot guarantee that all the Labs will be working 100%.
 
 ### Getting set up
 

@@ -21,4 +21,4 @@ spec:
         image: busybox
         imagePullPolicy: IfNotPresent
         
-        command: ['sh', '-c', 'for i in `seq 1 400000`; do wget http://istio-ingressgateway.istio-system/productpage; done']
+        command: ['sh', '-c', 'while true; do wget http://istio-ingressgateway.istio-system.svc.cluster.local/productpage; done']
