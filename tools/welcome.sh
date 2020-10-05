@@ -7,11 +7,11 @@ git pull origin master
 cd
 
 
+firefox https://niklaushirt.github.io/k8s_training_web/
+
 ./training/tools/startEnvironment.sh
 
 # ./training/pte/pte.sh
-firefox https://niklaushirt.github.io/k8s_training_web/
-
 
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
 echo " ${ORANGE}    Waiting 15 seconds to start Kubernetes Dashboard  ${NC}"
