@@ -12,7 +12,7 @@ cd
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
 echo " ${ORANGE}    Start Training Content  ${NC}"
 
-firefox https://niklaushirt.github.io/k8s_training_web/
+firefox https://niklaushirt.github.io/k8s_training_web/ &
 
 
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
