@@ -16,7 +16,7 @@ docker start portainer > /dev/null
 
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
 echo " ${CYAN}    Starting up your Minikube  ${NC}"
-minikube start --memory=8192 --cpus=4 --network-plugin=cni  --kubernetes-version v1.17.0
+minikube start --memory=6192 --cpus=4 --network-plugin=cni  --kubernetes-version v1.20.0
 
 
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
@@ -26,7 +26,7 @@ kubectl port-forward --namespace kube-system $(kubectl get po -n kube-system | g
 
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
 echo " ${CYAN}    Creating CNI Cilium  ${NC}"
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.6/install/kubernetes/quick-install.yaml > /dev/null
+kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.9.11/install/kubernetes/quick-install.yaml > /dev/null
 
 
 echo "${GREEN}********************************************************************************${NC}"
