@@ -56,19 +56,3 @@ You must have the following setup on your PC:
 	
 	
 	
-4. Get the Cluster IP (MY-CLUSTER-IP)
-	
-	IBM Cloud Kubernetes Service
-	
-	```bash
-	ibmcloud ks worker ls --cluster mycluster-free
-	```
-
-	Or any other means for other clouds.
-
-	
-5. You can access the PTE via
-
-	```bash
-	http://<MY-CLUSTER-IP>:31222
-	```

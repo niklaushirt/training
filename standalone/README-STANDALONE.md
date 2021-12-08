@@ -27,15 +27,3 @@ You must have the following setup on your PC:
 	
 	
 	
-4. Get the Cluster IP (MY-CLUSTER-IP)
-	
-	```bash
-	minikube ip
-	```
-
-	
-5. You can access the PTE via
-
-	```bash
-	http://<MY-CLUSTER-IP>:31222
-	```
