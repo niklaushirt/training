@@ -16,9 +16,8 @@ docker start portainer > /dev/null
 
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
 echo " ${CYAN}    Starting up your Minikube  ${NC}"
-minikube delete
-minikube start --memory=6000 --cpus=4 --network-plugin=cni  --kubernetes-version v1.24.0
-
+minikube start
+# minikube start --memory=6000 --cpus=4 --network-plugin=cni  --kubernetes-version v1.20.0
 
 echo "${GREEN}--------------------------------------------------------------------------------${NC}"
 echo " ${CYAN}    Creating Registry  ${NC}"
