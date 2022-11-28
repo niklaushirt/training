@@ -14,53 +14,18 @@ metadata:
   labels:
     app: polaris
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: polaris-view
-  labels:
-    app: polaris
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: view
+  name: polaris-admin
 subjects:
   - kind: ServiceAccount
     name: polaris
     namespace: polaris
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRole
-metadata:
-  name: polaris
-  labels:
-    app: polaris
-rules:
-  # required by controller-runtime code doing a cluster wide lookup
-  # when it seems namespace would suffice
-  - apiGroups:
-      - ''
-    resources:
-      - 'nodes'
-    verbs:
-      - 'get'
-      - 'list'
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRoleBinding
-metadata:
-  name: polaris
-  labels:
-    app: polaris
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: polaris
-subjects:
-  - kind: ServiceAccount
-    name: polaris
-    namespace: polaris
-
+  name: cluster-admin
 ---
 # Source: polaris/templates/dashboard.service.yaml
 apiVersion: v1
@@ -142,28 +107,5 @@ spec:
       serviceAccountName: polaris
       nodeSelector:
       tolerations:
----
-# Source: polaris/templates/audit.job.yaml
 
----
-# Source: polaris/templates/audit.rbac.yaml
-
----
-# Source: polaris/templates/configmap.yaml
-
-
----
-# Source: polaris/templates/ingress.yaml
-
----
-# Source: polaris/templates/webhook.deployment.yaml
-
----
-# Source: polaris/templates/webhook.rbac.yaml
-
----
-# Source: polaris/templates/webhook.secret.yaml
-
----
-# Source: polaris/templates/webhook.service.yaml
 
