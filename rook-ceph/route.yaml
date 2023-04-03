@@ -1,0 +1,16 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: rookceph
+  namespace: rook-ceph
+spec:
+  to:
+    kind: Service
+    name: rook-ceph-mgr-dashboard
+    weight: 100
+  port:
+    targetPort: https-dashboard
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
