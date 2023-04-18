@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-pod
+  namespace: default
+  labels:
+    app: echo-pod
+spec:
+  selector:
+    matchLabels:
+      app: echo-pod
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: "30%"
+      maxSurge: "90%"
+  template:
+    metadata:
+      labels:
+        app: echo-pod
+        version: current
+    spec:
+      containers:
+      - name: echo-pod
+        image: docker.io/niklaushirtecho-pod:0.3
+        imagePullPolicy: Always 
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            cpu: "150m"
+            memory: "150Mi"
+          limits:
+            cpu: "256m"
+            memory: "500Mi"
+        env:
+          - name: APPLICATION_NAME
+            value: echo-pod
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-pod-service
+  namespace: default
+spec:
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10000
+  selector:
+    app: echo-pod
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: echo
+  namespace: default
+  labels: {}
+spec:
+  to:
+    kind: Service
+    name: echo-pod-service
+  tls: null
+  path: /
+  port:
+    targetPort: 5000

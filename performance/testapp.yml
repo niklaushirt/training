@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: grpc-server
-        image: niklaushirt/grpc-server:1.0.0
+        image: docker.io/niklaushirtgrpc-server:1.0.0
         imagePullPolicy: IfNotPresent 
         env:
         - name: BACKEND_MESSAGE
@@ -56,7 +56,7 @@ spec:
     spec:
       containers:
       - name: grpc-api
-        image: niklaushirt/grpc-api:1.0.0
+        image: docker.io/niklaushirtgrpc-api:1.0.0
         imagePullPolicy: IfNotPresent 
         env:
         - name: GRPC_URL
@@ -99,7 +99,7 @@ spec:
     spec:
       containers:
       - name: grpc-web
-        image: niklaushirt/grpcdemo:1.0.0
+        image: docker.io/niklaushirtgrpcdemo:1.0.0
         imagePullPolicy: IfNotPresent 
         ports:
         - containerPort: 3000

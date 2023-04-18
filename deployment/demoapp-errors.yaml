@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: k8sdemo-nok
-        image: niklaushirt/k8sdemo:1.0.1
+        image: docker.io/niklaushirtk8sdemo:1.0.1
         ports:
         - containerPort: 3000 
         env:

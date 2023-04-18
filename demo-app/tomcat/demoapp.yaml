@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trainingdemo
+  namespace: default
+  labels:
+    app: trainingdemo
+spec:
+  selector:
+    matchLabels:
+      app: trainingdemo
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: "30%"
+      maxSurge: "90%"
+  template:
+    metadata:
+      labels:
+        app: trainingdemo
+        version: current
+    spec:
+      containers:
+      - name: trainingdemo
+        image: docker.io/niklaushirtmyimage:1.0.0
+        imagePullPolicy: Always 
+        livenessProbe:
+          httpGet:
+            path: /yourwarfile
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /yourwarfile
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: "150m"
+            memory: "150Mi"
+          limits:
+            cpu: "256m"
+            memory: "500Mi"
+        env:
+          - name: APPLICATION_NAME
+            value: trainingdemo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trainingdemo-service
+  namespace: default
+spec:
+  selector:
+    app: trainingdemo
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: trainingdemo-route
+  namespace: default
+  labels: {}
+spec:
+  to:
+    kind: Service
+    name: trainingdemo-service
+  tls: null
+  path: /yourwarfile
+  port:
+    targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mtrainingdemoy-ingress
+  namespace: default
+spec:
+  rules:
+    - host: test.apps-crc.testing
+      http:
+        paths:
+          - path: /yourwarfile
+            pathType: Prefix
+            backend:
+              service:
+                name: trainingdemo-service
+                port:
+                  number: 8080

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: istio-traffic-generator
+  namespace: kube-system
   labels:
     app: istio-traffic-generator
 spec:

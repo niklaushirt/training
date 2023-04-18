@@ -6,7 +6,7 @@ spec:
   # Add fields here
   size: 3
   label: backend
-  image: niklaushirt/k8sdemo-backend:1.0.0
+  image: docker.io/niklaushirtk8sdemo-backend:1.0.0
   message: "Hello from the Operator Lab..."
 
 

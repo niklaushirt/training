@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: k8sdemo
-        image: niklaushirt/k8sdemo:1.0.0
+        image: docker.io/niklaushirt/k8sdemo:1.0.0
         imagePullPolicy: Always 
         livenessProbe:
           httpGet:

@@ -6,4 +6,4 @@ spec:
   # Add fields here
   size: 3
   demo:
-    image: niklaushirt/k8sdemo:1.0.0
+    image: docker.io/niklaushirtk8sdemo:1.0.0
