@@ -1,155 +1,132 @@
 
-# Prerequisites for the Lab
+You must have the following setup on your PC:
 
+*   Podman
+*   Minikube
+*   Git
 
-Using the provided Lab VM is the easiest way to get started with the Labs for the training.
+This requires a minimum of:
 
-For this you'll need:
+- 2 physical CPU cores
+- 6 GB of free memory
 
-- Internet Access
-- PC with at least:
-  - 4 Core CPU
-  - 8GB of RAM / 16GB recommended (16GB needed for the Istio Lab)
-  - 40GB of free Disk Space
 
+For the MeshNetwork (Istio) Lab you need a minimum of:
 
-If you want to use your own environment (IBM Cloud or natively on your PC) you can follow the instructions here:
-[https://github.com/niklaushirt/training/tree/master/standalone](https://github.com/niklaushirt/training/tree/master/standalone)
+- 4 physical CPU cores
+- 9 GB of free memory
 
-This is untested and I cannot guarantee that all the Labs will be working 100%.
 
-### Getting set up
 
-Before we dive into the Labs, you need to be able to run the provided Lab VM. It contains a Minikube cluster and all the configurations for the subsequent labs. 
 
+<InlineNotification kind="info">
+If Minikube is not an option you can use OpenShift Local or any other Kubernetes solution (but this is untested and you're on your own).
+</InlineNotification>
 
-<div style="page-break-after: always;"></div>
 
-# Part 1 - Install Hypervisor
+## 🚀 TASK: Install prerequisites on Mac
 
-Before we dive into the Labs, you need to be able to run the provided Lab VM. It contains a Minikube cluster and all the configurations for the subsequent labs.
+1. Install CLI Tools
 
-> VMWare is the preferred option as it handles nested virtualization that we need for this lab very well.
-VirtualBox has this option in the latest releases but might prove unstable on certain PCs/Macs (especially the MacBook Pro 16' seems to run into problems).
+    <a href="https://kubernetes.io/docs/tasks/tools/" target="_blank" >🌏 Detailed Documentation for the Task</a>
 
-## Option 1 - Installing VMWare (preferred)
+    ```bash
+    brew install kubernetes-cli
+    ```
 
-If you do not already have VMWare installed, install a 60 days trial for your OS now:
+2. Install Podman
 
-* macOS	[VMWare](https://www.vmware.com/products/fusion/fusion-evaluation.html)
-* Windows	[VMWare](https://www.vmware.com/products/workstation/workstation-evaluation.html)
+    <a href="https://podman.io/getting-started/installation" target="_blank" >🌏 Detailed Documentation for the Task</a>
 
+    ```bash
+    brew install podman
+    ```
 
+3. Start Podman
 
-## Option 2 - Installing VirtualBox
+    ```bash
+    podman machine init --cpus 4 --memory 6666
+    podman machine start
+    ```
 
 
-If you do not already have VirtualBox installed, install it for your OS now:
+4. Install Minikube
 
-It is important that you use a version equal or newer than 6.1.6!
+    <a href="https://kubernetes.io/fr/docs/tasks/tools/install-minikube/" target="_blank" >🌏 Detailed Documentation for the Task</a>
 
-* macOS	[VirtualBox](https://www.virtualbox.org/wiki/Downloads), VMware Fusion, HyperKit
-* Linux	[VirtualBox](https://www.virtualbox.org/wiki/Downloads), KVM
-* Windows	[VirtualBox](https://www.virtualbox.org/wiki/Downloads), Hyper-V
+    1. Install Minikube
 
-    
-<div style="page-break-after: always;"></div>
+        ```bash
+        brew install minikube
+        ```
 
-## Part 2 - Download the Lab VM on your PC
+    2. Start Minikube 
 
-The VM is an 13GB zip file that has to be downloaded.
+        ```bash
+        minikube start --driver=podman
+        ```
 
 
 
-### Download from Google Drive 
 
-Download it here (VirtualBox and VMWare):
 
-[Google Drive VirtualBox](https://drive.google.com/drive/folders/12YFacjjc92Ens-XEecqgmOG9d0YCz4IQ?usp=sharing)
 
-[Google Drive VMWare](https://drive.google.com/drive/folders/12YFacjjc92Ens-XEecqgmOG9d0YCz4IQ?usp=sharing)
 
 
 
 
-<div style="page-break-after: always;"></div>
+## 🚀 TASK: Install prerequisites on Windows
 
-## Part 3 - Starting the VM
+1. Install CLI Tools
 
+    <a href="https://kubernetes.io/docs/tasks/tools/" target="_blank" >🌏 Detailed Documentation for the Task</a>
 
-### VMWare 
+    ```bash
+    curl.exe -LO "https://dl.k8s.io/release/v1.26.0/bin/windows/amd64/kubectl.exe"
+    ```
 
-1. Open the VM by double-clicking on the Training2020.vmx file.
+2. Install Podman
 
-2. Start the VM from the VmWare interface.
+    <a href="https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md" target="_blank" >🌏 Follow the official Documentation</a>
 
 
-### VirtualBox 
 
-**IMPORTANT**: There have been problems reported running VirtualBox and Docker Desktop on Mac at the same time.
-If you have Docker Desktop running please shut it down first, we'll use Docker in the VM.
+3. Start Podman
 
-1. Open the VM by double-clicking on the Training2020.vbox file.
+    ```bash
+    podman machine init --cpus 4 --memory 6666
+    podman machine start
+    ```
 
-2. Start the VM from the VmWare interface.
 
+4. Install Minikube
 
-<div style="page-break-after: always;"></div>
+    <a href="https://kubernetes.io/fr/docs/tasks/tools/install-minikube/" target="_blank" >🌏 Detailed Documentation for the Task</a>
 
-## Part 4 - Testing the VM
+    1. Download Minikube
 
-1. When the VM is up and running you can login with
+        <a href="https://github.com/kubernetes/minikube/releases/tag/v1.30.1" target="_blank" >Download from here</a>
 
-   User: training
+    1. Start Minikube 
 
-   Pwd: passw0rd
+        ```bash
+        minikube start --driver=podman --insecure-registry "10.0.0.0/24"
+        ```
 
-2. You can now open the Firefox browser in the VM and check that you can open a webpage (google.com for example)
 
-3. Open a terminal window (in the dock)
+5. Install some addons we will need later
 
+    ```bash
+    minikube addons enable registry    
+    minikube addons enable ingress    
+    minikube addons enable dashboard    
+    minikube addons list|grep enabled
+    ```
 
-
-4. Execute the following commands to initialize your Training Environment
-   
-	
-	```bash
-	./welcome.sh
-	```
-	
-	This will
-	* 	pull the latest example code from my GitHub repository
-	* 	start minikube if not already running
-	* 	installs the registry
-	* 	installs the Network Plugin (Cilium)
-	* 	starts the Personal Training Environment
-	
-	> During this you will have to provide a name (your name) that will be used to show your progress in the Instructor Dashboard in order to better assist you.
-	
-	
-
-<div style="page-break-after: always;"></div>
-
-
-## Part 5 - Troubleshooting
-
-1. If the startup script doesn’t work you can run ./resetEnvironment.sh (this can take up to 30 minutes as it has to redownload all Docker images)
-
-2. If you lose your PTE Webpage just run minikube service student-ui
-
-3. Problems on Windows 10
-
-	Can be fixed in most cases by turning off Hyper-V by running (as admin): 
-	`bcdedit /set hypervisorlaunchtype off`and rebooting.
-
-	This disables Hyper-V and allows Virtualbox to support nested virtualisation.
-	
-	You can turn it back on again with `bcdedit /set hypervisorlaunchtype auto`
-
-
-
-## Part 6 - Standalone installation
-
-Follow the steps here if you would like to use your own PC or an IBM Cloud Based Kubernetes Cluster:
-
-[https://github.com/niklaushirt/training/tree/master/standalone](https://github.com/niklaushirt/training/tree/master/standalone)
+    ```output
+    | dashboard                   | minikube | enabled ✅   | Kubernetes                     |
+    | default-storageclass        | minikube | enabled ✅   | Kubernetes                     |
+    | ingress                     | minikube | enabled ✅   | Kubernetes                     |
+    | registry                    | minikube | enabled ✅   | Google                         |
+    | storage-provisioner         | minikube | enabled ✅   | Google                         |
+    ```
