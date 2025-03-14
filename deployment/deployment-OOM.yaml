@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment-oom
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: oom
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: oom
+        version: current
+    spec:
+      containers:
+      - name: oom
+        image: docker.io/busybox:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "150m"
+            memory: "13Mi"
+          limits:
+            cpu: "500m"
+            memory: "13Mi"
+        command:
+          - /bin/sh
+          - -c
+          - |
+            #!/bin/bash
+            echo "*****************************************************************************************************************************"
+            echo " ✅ Consuming 5GB"
+            echo "*****************************************************************************************************************************"
+
+            head -c 5000m /dev/zero | tail | sleep 60
+           

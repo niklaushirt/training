@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment-ready
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: ready
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ready
+        version: current
+    spec:
+      containers:
+      - name: ready
+        image: docker.io/busybox:latest
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 1
+          periodSeconds: 1
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
+        command:
+          - /bin/sh
+          - -c
+          - |
+            #!/bin/bash
+            echo "*****************************************************************************************************************************"
+            echo " ✅ WAITING FOREVER"
+            echo "*****************************************************************************************************************************"
+
+            while true
+            do
+              sleep 1000
+            done

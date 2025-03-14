@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-crashloop
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: crashloop
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: crashloop
+        version: current
+    spec:
+      containers:
+      - name: crashloop
+        image: docker.io/niklaushirt/crashloop:arm
+        ports:
+        - containerPort: 80

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-imagepull-sa
+spec:
+  selector:
+    matchLabels:
+      app: imagepull-sa
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: imagepull-sa
+        version: current
+    spec:
+      serviceAccountName: demo-service-account
+      containers:
+      - name: imagepull-sa
+        image: docker.io/nginx-error:latest
+        ports:
+        - containerPort: 80
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: demo-service-account
+imagePullSecrets:
+  - name: demo-pull-secret
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: demo-pull-secret
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJyZWdpc3RyeWlvIjp7InVzZXJuYW1lIjoibmlrbGF1c2hpcnQiLCJwYXNzd29yZCI6Im5vbmVvZnlvdXJidXNpbmVzcyIsImF1dGgiOiJibWxyYkdGMWMyaHBjblE2Ym05dVpXOW1lVzkxY21KMWMybHVaWE56IiwiZW1haWwiOiIifX19
+type: kubernetes.io/dockerconfigjson
+

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment-cpu
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: cpu
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cpu
+        version: current
+    spec:
+      containers:
+      - name: cpu
+        image: docker.io/alpine:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "15m"
+            memory: "13Mi"
+          limits:
+            cpu: "15m"
+            memory: "1300Mi"
+        command:
+          - /bin/sh
+          - -c
+          - |
+            #!/bin/bash
+            echo "*****************************************************************************************************************************"
+            echo " ✅ Create CPU Load"
+            echo "*****************************************************************************************************************************"
+
+            
+            while true
+            do
+              sleep 1000
+              #yes > /dev/null &
+            done

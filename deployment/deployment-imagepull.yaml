@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-imagepull
+spec:
+  selector:
+    matchLabels:
+      app: imagepull
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: imagepull
+        version: current
+    spec:
+      containers:
+      - name: imagepull
+        image: docker.io/nginx-error:latest
+        ports:
+        - containerPort: 80

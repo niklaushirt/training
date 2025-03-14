@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment-cm
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+        version: current
+    spec:
+      containers:
+      - name: nginx
+        image: docker.io/nginx:latest
+        ports:
+        - containerPort: 80
+        env:
+          - name: allowedlocal
+            value: "true"
+          - name: enemieslocal
+            value: "aliens"
+          - name: liveslocal
+            value: "3"
+        envFrom:
+          - configMapRef:
+              name: example-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-config
+data:
+  allowed: "false"
+  enemies: "sharks"
+  lives: "50"
+
+
