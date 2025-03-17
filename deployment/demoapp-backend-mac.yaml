@@ -52,4 +52,4 @@ spec:
           - name: APPLICATION_NAME
             value: k8sdemo-backend
           - name: BACKEND_MESSAGE
-            value: "Hi there from the Security Training..."
+            value: "Hi there from the Kubernetes Training..."

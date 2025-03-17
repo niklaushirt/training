@@ -34,4 +34,16 @@ metadata:
 data:
   .dockerconfigjson: eyJhdXRocyI6eyJyZWdpc3RyeWlvIjp7InVzZXJuYW1lIjoibmlrbGF1c2hpcnQiLCJwYXNzd29yZCI6Im5vbmVvZnlvdXJidXNpbmVzcyIsImF1dGgiOiJibWxyYkdGMWMyaHBjblE2Ym05dVpXOW1lVzkxY21KMWMybHVaWE56IiwiZW1haWwiOiIifX19
 type: kubernetes.io/dockerconfigjson
-
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: demo-admin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: demo-service-account
+    namespace: default
