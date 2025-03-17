@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>COMMANDLINE_COURSE</title>
+
+
+<style type="text/css">
+/*
+This document has been created with Marked.app <http://marked2app.com>, Copyright 2013 Brett Terpstra
+Content is property of the document author
+Please leave this notice in place, along with any additional credits below.
+---------------------------------------------------------------
+Title:  NICI
+Author:  Brett Terpstra
+Description:  Clean, Swiss typography with no frills.
+*/
+body {
+  -webkit-font-smoothing: antialiased;
+  font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+  font-size: 16px;
+  line-height: 1.3125em;
+  margin: 30px 0 0;
+  padding: 0; }
+
+#wrapper {
+  padding: 20px; }
+
+li {
+  font-size: 110%; }
+  li li {
+    font-size: 100%; }
+  li p {
+    font-size: 100%;
+    margin: .5em 0; }
+
+h1 {
+  color: black;
+  margin: 0;
+  font-size: 3.5em;
+  line-height: 0.875em;
+  margin-bottom: 0.875em; }
+
+h2 {
+  color: #111111;
+  margin: 0;
+  font-size: 1.375em;
+  line-height: 0.9545454545454546em;
+  margin-bottom: 0.9545454545454546em; }
+
+h3 {
+  color: #111111;
+  margin: 0;
+  font-size: 1.25em;
+  line-height: 1.05em;
+  margin-bottom: 1.05em; }
+
+h4 {
+  color: #111111;
+  margin: 0;
+  font-size: 1.125em;
+  line-height: 1.1666666666666667em;
+  margin-bottom: 1.1666666666666667em; }
+
+h5 {
+  color: #111111;
+  font-size: 1.15em;
+  line-height: 1.3em;
+  margin: 1.3em 0; }
+
+h6 {
+  font-size: 1em;
+  line-height: 1.5em;
+  margin: 1.5em 0; }
+
+body, p, td, div {
+  color: #111111;
+  font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+  word-wrap: break-word; }
+
+body {
+  padding: 50px;
+}
+
+a {
+  color: #0d6ea1;
+  font-size: 1.25em;
+  text-decoration: none;
+  -webkit-transition: color 0.2s ease-in-out;
+  -moz-transition: color 0.2s ease-in-out;
+  -o-transition: color 0.2s ease-in-out;
+  -ms-transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out; }
+  a:hover {
+    color: #3593d9; }
+
+.footnote {
+  color: #0d6ea1;
+  font-size: .8em;
+  vertical-align: super; }
+
+#wrapper img {
+  max-width: 100%;
+  height: auto; }
+
+dd {
+  margin-bottom: 1em; }
+
+li > p:first-child {
+  margin: 0; }
+
+ul ul, ul ol {
+  margin-bottom: .4em; }
+
+caption, col, colgroup, table, tbody, td, tfoot, th, thead, tr {
+  border-spacing: 0; }
+
+table {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-collapse: collapse;
+  display: table;
+  empty-cells: hide;
+  margin: -1px 0 1.3125em;
+  padding: 0;
+  table-layout: fixed; }
+
+caption {
+  display: table-caption;
+  font-weight: 700; }
+
+col {
+  display: table-column; }
+
+colgroup {
+  display: table-column-group; }
+
+tbody {
+  display: table-row-group; }
+
+tfoot {
+  display: table-footer-group; }
+
+thead {
+  display: table-header-group; }
+
+td, th {
+  display: table-cell; }
+
+tr {
+  display: table-row; }
+
+table th, table td {
+  font-size: 1.1em;
+  line-height: 23px;
+  padding: 0 1em; }
+
+table thead {
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
+
+table tbody {
+  background: rgba(0, 0, 0, 0.05); }
+
+table tfoot {
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-top: 1px solid rgba(0, 0, 0, 0.2); }
+
+figure {
+  display: inline-block;
+  position: relative;
+  margin: 1em 0 2em; }
+
+figcaption {
+  font-style: italic;
+  text-align: center;
+  background: white;
+  color: #666666;
+  position: absolute;
+  left: 0;
+  bottom: -24px;
+  width: 98%;
+  padding: 1%;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out; }
+
+figure:hover > figcaption {
+  /* background: rgba(0,0,0,1) */ }
+
+.poetry pre {
+  display: block;
+  font-family: Georgia, Garamond, serif !important;
+  font-size: 110% !important;
+  font-style: italic;
+  line-height: 1.6em;
+  margin-left: 1em; }
+  .poetry pre code {
+    font-family: Georgia, Garamond, serif !important;
+    word-break: break-all;
+    word-break: break-word;
+    /* Non standard for webkit */
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+    white-space: pre-wrap; }
+
+blockquote p {
+  font-size: 110%;
+  font-style: italic;
+  line-height: 1.6em; }
+
+sup, sub, a.footnote {
+  font-size: 1.4ex;
+  height: 0;
+  line-height: 1;
+  position: relative;
+  vertical-align: super; }
+
+sub {
+  vertical-align: sub;
+  top: -1px; }
+
+p, h5 {
+  font-size: 1.1429em;
+  line-height: 1.3125em;
+  margin: 1.3125em 0; }
+
+dt, th {
+  font-weight: 700; }
+
+table tr:nth-child(odd), table th:nth-child(odd), table td:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.06); }
+
+table tr:nth-child(even), table td:nth-child(even) {
+  background: rgba(200, 200, 200, 0.25); }
+
+@media print {
+  body {
+    overflow: auto; }
+
+  img, pre, blockquote, table, figure, p {
+    page-break-inside: avoid; }
+
+  #wrapper {
+    background: white;
+    color: #303030;
+    font-size: 85%;
+    padding: 10px;
+    position: relative;
+    text-indent: 0; } }
+@media screen {
+  .inverted {
+    background: #252a2a; }
+    .inverted #wrapper {
+      background: #252a2a;
+      color: #eeeeee; }
+    .inverted hr {
+      border-color: #333f40 !important; }
+    .inverted p, .inverted td, .inverted li, .inverted h1, .inverted h2, .inverted h3, .inverted h4, .inverted h5, .inverted h6, .inverted th, .inverted .math, .inverted caption, .inverted dt, .inverted dd {
+      color: #eeeeee; }
+    .inverted pre code {
+      color: #111; }
+    .inverted table {
+      background: none; }
+      .inverted table tr:nth-child(odd), .inverted table td:nth-child(odd) {
+        background: none; }
+    .inverted a {
+      color: #acd1d5; }
+
+  ::selection {
+    background: rgba(157, 193, 200, 0.5); }
+
+  h1::selection {
+    background-color: rgba(45, 156, 208, 0.3); }
+
+  h2::selection {
+    background-color: rgba(90, 182, 224, 0.3); }
+
+  h3::selection, h4::selection, h5::selection, h6::selection, li::selection, ol::selection {
+    background-color: rgba(133, 201, 232, 0.3); }
+
+
+  code::selection {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #eee; }
+
+  code span::selection {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    color: #eee !important; }
+
+  a::selection {
+    background-color: rgba(255, 230, 102, 0.2); }
+
+  .inverted a::selection {
+    background-color: rgba(255, 230, 102, 0.6); }
+
+  td::selection, th::selection, caption::selection {
+    background-color: rgba(180, 237, 95, 0.5); } }
+</style>
+
+<style type="text/css">
+/**
+ * atom-dark theme for `prism.js`
+ * Based on Atom's `atom-dark` theme: https://github.com/atom/atom-dark-syntax
+ * @author Joe Gibson (@gibsjose)
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #c5c8c6;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+
+code[class*="language-yaml"],
+pre[class*="language-yaml"] {
+	color: #c5c8c6;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #1d1f21;
+}
+
+
+:not(pre) > code[class*="language-yaml"],
+pre[class*="language-yaml"] {
+	background: #112277;
+}
+
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #7C7C7C;
+}
+
+.token.punctuation {
+	color: #c5c8c6;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.keyword,
+.token.tag {
+	color: #6FB8FF;;
+}
+
+.token.class-name {
+	color: #FFFFB6;
+	text-decoration: underline;
+}
+
+.token.boolean,
+.token.constant {
+	color: #99CC99;
+}
+
+.token.symbol,
+.token.deleted {
+	color: #f92672;
+}
+
+.token.number {
+	color: #FF73FD;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #A8FF60;
+}
+
+.token.variable {
+	color: #C6C5FE;
+}
+
+.token.operator {
+	color: #EDEDED;
+}
+
+.token.entity {
+	color: #FFFFB6;
+	cursor: help;
+}
+
+.token.url {
+	color: #96CBFE;
+}
+
+.language-css .token.string,
+.style .token.string {
+	color: #87C38A;
+}
+
+.token.atrule,
+.token.attr-value {
+	color: #F9EE98;
+}
+
+.token.function {
+	color: #4EF502;
+}
+
+.token.regex {
+	color: #E9C062;
+}
+
+.token.important {
+	color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+
+.token.italic {
+	font-style: italic;
+}
+</style>
+
+<style type="text/css">
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+	.line-numbers-rows > span {
+		pointer-events: none;
+		display: block;
+		counter-increment: linenumber;
+	}
+
+		.line-numbers-rows > span:before {
+			content: counter(linenumber);
+			color: #999;
+			display: block;
+			padding-right: 0.8em;
+			text-align: right;
+		}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Kubernetes Course 2025</h1>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_1">INSTALL</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">git clone https://github.com/niklaushirt/training.git
+cd training</code></pre></div>
+
+<p><a href="">https://hub.docker.com</a></p>
+
+<p><BR></p>
+
+<p><BR><BR><BR><BR><BR><BR><BR><BR><BR></p>
+
+<hr>
+
+<hr>
+
+<hr>
+
+<hr>
+
+<p><BR></p>
+
+<h1 id="toc_2">Container</h1>
+
+<hr>
+
+<h2 id="toc_3">BUILD</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">cd /Users/nhirt/TEMP/training
+cd demo-app/k8sdemo/
+bat ./Dockerfile</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">podman build -t myimage:1.0.0 .
+podman images </code></pre></div>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_4">PODMAN</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">podman context ls
+
+podman --connection podman-machine-default-root run \
+    --rm \
+    --privileged \
+    --detach \
+    --name portainer \
+    -v portainer_data:/data \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -p 9443:9443 \
+    -p 8000:8000 \
+    portainer/portainer-ce</code></pre></div>
+
+<p><a href="">https://localhost:9443</a></p>
+
+<div><pre class="line-numbers"><code class="language-bash">podman --connection podman-machine-default-root kill portainer
+podman --connection podman-machine-default-root volume rm portainer_data</code></pre></div>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_5">RUN</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">podman run --rm -ti myimage:1.0.0 /bin/bash
+uname -a</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">podman run --rm -ti -e MYVAR=foo -p 8080:3000 myimage:1.0.0</code></pre></div>
+
+<p><a href="">http://localhost:8080</a></p>
+
+<div><pre class="line-numbers"><code class="language-bash">podman ps [-a]
+
+podman stop/kill &lt;CONTAINER_ID&gt;</code></pre></div>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_6">REGISTRY</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">podman login docker.io
+
+podman tag myimage:1.0.0 docker.io/niklaushirt/myimage:1.0.0
+
+podman images
+podman push docker.io/niklaushirt/myimage:1.0.0
+
+podman pull docker.io/niklaushirt/myimage:latest</code></pre></div>
+
+<p><a href="">https://hub.docker.com/u/niklaushirt</a></p>
+
+<div><pre class="line-numbers"><code class="language-bash">podman build --platform linux/arm64/v8 --platform linux/amd64 -t myimage:1.0.0 --manifest myimage-mf .
+podman manifest inspect myimage-mf|yq -P</code></pre></div>
+
+<p><BR><BR><BR><BR><BR><BR><BR><BR><BR></p>
+
+<hr>
+
+<hr>
+
+<hr>
+
+<hr>
+
+<p><BR></p>
+
+<h1 id="toc_7">K8s</h1>
+
+<div><pre class="line-numbers"><code class="language-bash">cd /Users/nhirt/TEMP/training
+
+kubectl get nodes</code></pre></div>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_8">RUNNING</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">kubectl run nginx-demo --image=docker.io/nginx
+kubectl get pods</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/pod.yaml
+kubectl create -f ./deployment/pod.yaml
+kubectl apply -f ./deployment/pod.yaml
+
+kubectl get pods</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">kubectl get pods nginx -o yaml|yq</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">kubectl get pods
+echo &quot;-----&quot;
+kubectl get pods -l release=april2023</code></pre></div>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_9">SERVICES</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">kubectl create -f ./deployment/service.yaml</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">kubectl port-forward --namespace default pod/nginx 8000:80</code></pre></div>
+
+<p><a href="">http://localhost:8000</a></p>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_10">DEPLOYMENT</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/deployment.yaml
+
+kubectl apply -f ./deployment/deployment.yaml
+
+kubectl get pods
+kubectl get deployments</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">kubectl port-forward --namespace default deployment/nginx-deployment 8000:80</code></pre></div>
+
+<p><a href="">http://localhost:8000</a></p>
+
+<div><pre class="line-numbers"><code class="language-bash">kubectl port-forward --namespace default service/nginx-service 8000:8000</code></pre></div>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_11">CONFIGURATION</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/deployment-cm.yaml
+
+kubectl apply -f ./deployment/deployment-cm.yaml</code></pre></div>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_12">APPLIED</h2>
+
+<p><a href="">https://niklaushirt.github.io/k8s<em>training</em>web/04-kubernetes-basics/04-kubernetes-basics-03</a></p>
+
+<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/demoapp-backend-mac.yaml
+
+bat ./deployment/demoapp-mac.yaml</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">kubectl create -f ./deployment/demoapp-backend-mac.yaml
+kubectl create -f ./deployment/demoapp-backend-service.yaml
+
+kubectl create -f ./deployment/demoapp-mac.yaml
+kubectl create -f ./deployment/demoapp-service.yaml</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">kubectl port-forward --namespace default service/k8sdemo-service 3000:3000</code></pre></div>
+
+<p><a href="">http://localhost:3000</a></p>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_13">STORAGE</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">kubectl get StorageClasses</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">bat ./volumes/1-simple-mysql-pv.yaml
+kubectl apply -f ./volumes/1-simple-mysql-pv.yaml
+kubectl get pv
+kubectl describe pv mysql-pv-volume</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">bat ./volumes/2-simple-mysql-pvc.yaml
+kubectl apply -f ./volumes/2-simple-mysql-pvc.yaml
+kubectl get pvc</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">bat ./volumes/3-simple-mysql-deployment.yaml
+kubectl apply -f ./volumes/3-simple-mysql-deployment.yaml
+kubectl get deployment</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">k9s
+
+mysql -ppassword
+
+CREATE DATABASE testing;
+show databases;
+exit;</code></pre></div>
+
+<p><BR><BR><BR><BR><BR><BR><BR><BR></p>
+
+<hr>
+
+<hr>
+
+<hr>
+
+<hr>
+
+<p><BR></p>
+
+<h1 id="toc_14">ADVANCED</h1>
+
+<div><pre class="line-numbers"><code class="language-bash">kubectl apply -f ./deployment/deployment-READY.yaml
+kubectl apply -f ./deployment/deployment-LIVENESS.yaml
+kubectl apply -f ./deployment/deployment-OOM.yaml
+kubectl apply -f ./deployment/deployment-crashloop.yaml
+kubectl apply -f ./deployment/deployment-imagepull.yaml
+kubectl apply -f ./deployment/deployment-imagepull-sa.yaml</code></pre></div>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_15">LIMITS</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/deployment-READY.yaml
+bat ./deployment/deployment-LIVENESS.yaml</code></pre></div>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_16">PROBES</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/deployment-OOM.yaml</code></pre></div>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_17">RBAC</h2>
+
+<p><a href="">https://niklaushirt.github.io/k8s<em>training</em>web/06-security/06-security-04</a></p>
+
+<div><pre class="line-numbers"><code class="language-bash">rakkess resource pods --namespace default</code></pre></div>
+
+<p><a href="">https://github.com/alcideio/rbac-tool/releases</a></p>
+
+<div><pre class="line-numbers"><code class="language-bash">rbac-tool analysis -o table
+rbac-tool viz --include-namespaces default --include-pods-only --show-legend --show-psp --show-rule
+
+rbac-tool lookup -e &#39;^kubeadm:.*&#39;
+
+rbac-tool lookup -e &#39;.*demo.*&#39;</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/critical.yaml
+kubectl apply -f ./deployment/critical.yaml</code></pre></div>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_18">SECURITY</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">conftest test -p ./conftest/src/examples/kubernetes/policy ./deployment/demoapp.yaml</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-bash">kubescape list controls
+
+kubescape scan
+
+kubescape scan control C-0067,C-0066,C-0035,C-0012,C-0057,C-0048,C-0041 -v</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-none">kubescape list frameworks
+
+kubescape scan framework DevOpsBest
+kubescape scan framework DevOpsBest -v
+kubescape scan framework nsa -v
+kubescape scan framework mitre -v
+kubescape scan framework cis-v1.23-t1.0.1 -v -f html&gt; result.html
+open result.html</code></pre></div>
+
+<div><pre class="line-numbers"><code class="language-none"># Minimize wildcard use in Roles
+kubescape scan control C-0187 -v
+
+# Privileged container
+kubescape scan control C-0057 -v
+
+# Ensure that the cluster-admin role is only used where required
+kubescape scan control C-0185 -v
+
+# Workload with administrative roles
+kubescape scan control C-0272 -v
+
+# Applications credentials in configuration file
+kubescape scan control C-0012 -v</code></pre></div>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_19">DEBUG</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/deployment-crashloop.yaml
+bat ./deployment/deployment-imagepull.yaml
+bat ./deployment/deployment-imagepull-sa.yaml</code></pre></div>
+
+<p><BR></p>
+
+<hr>
+
+<h2 id="toc_20">CLEAN-UP</h2>
+
+<div><pre class="line-numbers"><code class="language-bash">kubectl delete -f ./deployment/deployment-crashloop.yaml
+kubectl delete -f ./deployment/deployment-imagepull.yaml
+kubectl delete -f ./deployment/deployment-imagepull-sa.yaml
+kubectl delete -f ./deployment/deployment-OOM.yaml
+kubectl delete -f ./deployment/deployment-READY.yaml
+kubectl delete -f ./deployment/deployment-LIVENESS.yaml
+
+
+kubectl delete -f ./volumes/3-simple-mysql-deployment.yaml
+kubectl delete -f ./volumes/2-simple-mysql-pvc.yaml
+kubectl delete -f ./volumes/1-simple-mysql-pv.yaml
+kubectl delete -f ./deployment/demoapp-backend-mac.yaml
+kubectl delete -f ./deployment/demoapp-backend-service.yaml
+kubectl delete -f ./deployment/demoapp-mac.yaml
+kubectl delete -f ./deployment/demoapp-service.yaml
+kubectl delete -f ./deployment/deployment.yaml
+kubectl delete -f ./deployment/deployment-cm.yaml
+kubectl delete -f ./deployment/pod.yaml
+kubectl delete -f ./deployment/service.yaml
+kubectl delete -f ./deployment/critical.yaml
+
+kubectl delete pods nginx-demo
+kubectl delete pods nginx
+podman --connection podman-machine-default-root kill portainer</code></pre></div>
+
+<p>kubectl debug $(kubectl get po -n default -l app=crashloop --no-headers| \awk &#39;{print $1;}&#39;) -it --copy-to=my-debugger --container=mycontainer -- sh</p>
+
+<p>kubectl debug $(kubectl get po -n default -l app=crashloop --no-headers| \awk &#39;{print $1;}&#39;) -it --image=busybox
+kubectl debug $(kubectl get po -n default -l app=crashloop --no-headers| \awk &#39;{print $1;}&#39;) -it --image=busybox --copy-to=my-debugger</p>
+
+<p>kubectl debug $(kubectl get po -n default -l app=crashloop --no-headers| \awk &#39;{print $1;}&#39;) -it --image=busybox</p>
+
+
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+
+<script type="text/javascript">
+!function(e){var t={variable:[{pattern:/\$?\(\([\w\W]+?\)\)/,inside:{variable:[{pattern:/(^\$\(\([\w\W]+)\)\)/,lookbehind:!0},/^\$\(\(/],number:/\b-?(?:0x[\dA-Fa-f]+|\d*\.?\d+(?:[Ee]-?\d+)?)\b/,operator:/--?|-=|\+\+?|\+=|!=?|~|\*\*?|\*=|\/=?|%=?|<<=?|>>=?|<=?|>=?|==?|&&?|&=|\^=?|\|\|?|\|=|\?|:/,punctuation:/\(\(?|\)\)?|,|;/}},{pattern:/\$\([^)]+\)|`[^`]+`/,inside:{variable:/^\$\(|^`|\)$|`$/}},/\$(?:[a-z0-9_#\?\*!@]+|\{[^}]+\})/i]};e.languages.bash={shebang:{pattern:/^#!\s*\/bin\/bash|^#!\s*\/bin\/sh/,alias:"important"},comment:{pattern:/(^|[^"{\\])#.*/,lookbehind:!0},string:[{pattern:/((?:^|[^<])<<\s*)(?:"|')?(\w+?)(?:"|')?\s*\r?\n(?:[\s\S])*?\r?\n\2/g,lookbehind:!0,inside:t},{pattern:/(["'])(?:\\\\|\\?[^\\])*?\1/g,inside:t}],variable:t.variable,"function":{pattern:/(^|\s|;|\||&)(?:istioctl|rbac-view|curl|wget|rakkess|openssl|conftest|kubehunter|kubesec|alias|kubectl|docker|pstree|minikube|gedit|operator-sdk|gitrefresh|apropos|apt-get|aptitude|aspell|awk|basename|bash|bc|bg|builtin|bzip2|cal|cat|cd|cfdisk|chgrp|chmod|chown|chroot|chkconfig|cksum|clear|cmp|comm|command|cp|cron|crontab|csplit|cut|date|dc|dd|ddrescue|df|diff|diff3|dig|dir|dircolors|dirname|dirs|dmesg|du|egrep|eject|enable|env|ethtool|eval|exec|expand|expect|export|expr|fdformat|fdisk|fg|fgrep|file|find|fmt|fold|format|free|fsck|ftp|fuser|gawk|getopts|git|grep|groupadd|groupdel|groupmod|groups|gzip|hash|head|help|hg|history|hostname|htop|iconv|id|ifconfig|ifdown|ifup|import|install|jobs|join|kill|killall|less|link|ln|locate|logname|logout|look|lpc|lpr|lprint|lprintd|lprintq|lprm|ls|lsof|make|man|mkdir|mkfifo|mkisofs|mknod|more|most|mount|mtools|mtr|mv|mmv|nano|netstat|nice|nl|nohup|notify-send|nslookup|open|op|passwd|paste|pathchk|ping|pkill|popd|pr|printcap|printenv|printf|ps|pushd|pv|pwd|quota|quotacheck|quotactl|ram|rar|rcp|read|readarray|readonly|reboot|rename|renice|remsync|rev|rm|rmdir|rsync|screen|scp|sdiff|sed|seq|service|sftp|shift|shopt|shutdown|sleep|slocate|sort|source|split|ssh|stat|strace|su|sudo|sum|suspend|sync|tail|tar|tee|test|time|timeout|times|touch|top|traceroute|trap|tr|tsort|tty|type|ulimit|umask|umount|unalias|uname|unexpand|uniq|units|unrar|unshar|uptime|useradd|userdel|usermod|users|uuencode|uudecode|v|vdir|vi|vmstat|wait|watch|wc|wget|whereis|which|who|whoami|write|xargs|xdg-open|yes|zip)(?=$|\s|;|\||&)/,lookbehind:!0},keyword:{pattern:/(^|\s|;|\||&)(?:let|:|\.|if|then|else|elif|fi|for|break|continue|while|in|case|function|select|do|done|until|echo|exit|new|build|port-forward|patch|push|create|get|apply|run|delete|describe|expose|scale|return|set|declare)(?=$|\s|;|\||&)/,lookbehind:!0},"boolean":{pattern:/(^|\s|;|\||&)(?:true|false)(?=$|\s|;|\||&)/,lookbehind:!0},operator:/&&?|\|\|?|==?|!=?|<<<?|>>|<=?|>=?|=~/,punctuation:/\$?\(\(?|\)\)?|\.\.|[{}[\];]/};var a=t.variable[1].inside;a["function"]=e.languages.bash["function"],a.keyword=e.languages.bash.keyword,a.boolean=e.languages.bash.boolean,a.operator=e.languages.bash.operator,a.punctuation=e.languages.bash.punctuation}(Prism);
+</script>
+
+<script type="text/javascript">
+!function(){"undefined"!=typeof self&&self.Prism&&self.document&&Prism.hooks.add("complete",function(e){if(e.code){var t=e.element.parentNode,s=/\s*\bline-numbers\b\s*/;if(t&&/pre/i.test(t.nodeName)&&(s.test(t.className)||s.test(e.element.className))&&!e.element.querySelector(".line-numbers-rows")){s.test(e.element.className)&&(e.element.className=e.element.className.replace(s,"")),s.test(t.className)||(t.className+=" line-numbers");var n,a=e.code.match(/\n(?!$)/g),l=a?a.length+1:1,m=new Array(l+1);m=m.join("<span></span>"),n=document.createElement("span"),n.className="line-numbers-rows",n.innerHTML=m,t.hasAttribute("data-start")&&(t.style.counterReset="linenumber "+(parseInt(t.getAttribute("data-start"),10)-1)),e.element.appendChild(n)}}})}();
+</script>
+
+
+</body>
+
+</html>
