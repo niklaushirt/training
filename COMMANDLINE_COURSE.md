@@ -10,7 +10,7 @@ git clone https://github.com/niklaushirt/training.git
 cd training
 ```
 
-[https://hub.docker.com]()
+[https://hub.docker.com](https://hub.docker.com)
 
 <BR>
 
@@ -66,7 +66,7 @@ podman --connection podman-machine-default-root run \
     portainer/portainer-ce
 ```
 
-[https://localhost:9443]()
+[https://localhost:9443](https://localhost:9443)
 
 ```bash
 podman --connection podman-machine-default-root kill portainer
@@ -88,7 +88,7 @@ uname -a
 podman run --rm -ti -e MYVAR=foo -p 8080:3000 myimage:1.0.0
 ```
 
-[http://localhost:8080]()
+[http://localhost:8080](http://localhost:8080)
 
 ```bash
 podman ps [-a]
@@ -113,7 +113,7 @@ podman push docker.io/niklaushirt/myimage:1.0.0
 podman pull docker.io/niklaushirt/myimage:latest
 ```
 
-[https://hub.docker.com/u/niklaushirt]()
+[https://hub.docker.com/u/niklaushirt](https://hub.docker.com/u/niklaushirt)
 
 
 ```bash
@@ -194,7 +194,7 @@ kubectl port-forward --namespace default pod/nginx 8000:80
 ```
 
 
-[http://localhost:8000]()
+[http://localhost:8000](http://localhost:8000)
 
 
 
@@ -218,7 +218,7 @@ kubectl get deployments
 kubectl port-forward --namespace default deployment/nginx-deployment 8000:80
 ```
 
-[http://localhost:8000]()
+[http://localhost:8000](http://localhost:8000)
 
 ```bash
 kubectl port-forward --namespace default service/nginx-service 8000:8000
@@ -245,7 +245,7 @@ kubectl apply -f ./deployment/deployment-cm.yaml
 ---
 ## APPLIED
 
-[https://niklaushirt.github.io/k8s_training_web/04-kubernetes-basics/04-kubernetes-basics-03]()
+[https://niklaushirt.github.io/k8s_training_web/04-kubernetes-basics/04-kubernetes-basics-03](https://niklaushirt.github.io/k8s_training_web/04-kubernetes-basics/04-kubernetes-basics-03)
 
 
 ```bash
@@ -268,7 +268,7 @@ kubectl create -f ./deployment/demoapp-service.yaml
 kubectl port-forward --namespace default service/k8sdemo-service 3000:3000
 ```
 
-[http://localhost:3000]()
+[http://localhost:3000](http://localhost:3000)
 
 
 
@@ -369,13 +369,13 @@ bat ./deployment/deployment-OOM.yaml
 ---
 ## RBAC
 
-[https://niklaushirt.github.io/k8s_training_web/06-security/06-security-04]()
+[https://niklaushirt.github.io/k8s_training_web/06-security/06-security-04](https://niklaushirt.github.io/k8s_training_web/06-security/06-security-04)
 
 ```bash
 rakkess resource pods --namespace default
 ```
 
-[https://github.com/alcideio/rbac-tool/releases]()
+[https://github.com/alcideio/rbac-tool/releases](https://github.com/alcideio/rbac-tool/releases)
 
 ```bash
 rbac-tool analysis -o table

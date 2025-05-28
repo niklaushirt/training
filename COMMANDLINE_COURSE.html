@@ -307,21 +307,22 @@ table tr:nth-child(even), table td:nth-child(even) {
 
 <style type="text/css">
 /**
- * atom-dark theme for `prism.js`
- * Based on Atom's `atom-dark` theme: https://github.com/atom/atom-dark-syntax
- * @author Joe Gibson (@gibsjose)
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
  */
 
 code[class*="language-"],
 pre[class*="language-"] {
-	color: #c5c8c6;
-	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-	font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
-	direction: ltr;
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 	text-align: left;
 	white-space: pre;
 	word-spacing: normal;
 	word-break: normal;
+	word-wrap: normal;
 	line-height: 1.5;
 
 	-moz-tab-size: 4;
@@ -334,66 +335,53 @@ pre[class*="language-"] {
 	hyphens: none;
 }
 
-
-code[class*="language-yaml"],
-pre[class*="language-yaml"] {
-	color: #c5c8c6;
-	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-	font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
-	direction: ltr;
-	text-align: left;
-	white-space: pre;
-	word-spacing: normal;
-	word-break: normal;
-	line-height: 1.5;
-
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
-	tab-size: 4;
-
-	-webkit-hyphens: none;
-	-moz-hyphens: none;
-	-ms-hyphens: none;
-	hyphens: none;
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
 }
 
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
 
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
 
 /* Code blocks */
 pre[class*="language-"] {
 	padding: 1em;
 	margin: .5em 0;
 	overflow: auto;
-	border-radius: 0.3em;
 }
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-	background: #1d1f21;
+	background: #f5f2f0;
 }
-
-
-:not(pre) > code[class*="language-yaml"],
-pre[class*="language-yaml"] {
-	background: #112277;
-}
-
 
 /* Inline code */
 :not(pre) > code[class*="language-"] {
 	padding: .1em;
 	border-radius: .3em;
+	white-space: normal;
 }
 
 .token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-	color: #7C7C7C;
+	color: slategray;
 }
 
 .token.punctuation {
-	color: #c5c8c6;
+	color: #999;
 }
 
 .namespace {
@@ -401,28 +389,13 @@ pre[class*="language-yaml"] {
 }
 
 .token.property,
-.token.keyword,
-.token.tag {
-	color: #6FB8FF;;
-}
-
-.token.class-name {
-	color: #FFFFB6;
-	text-decoration: underline;
-}
-
+.token.tag,
 .token.boolean,
-.token.constant {
-	color: #99CC99;
-}
-
+.token.number,
+.token.constant,
 .token.symbol,
 .token.deleted {
-	color: #f92672;
-}
-
-.token.number {
-	color: #FF73FD;
+	color: #905;
 }
 
 .token.selector,
@@ -431,99 +404,45 @@ pre[class*="language-yaml"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-	color: #A8FF60;
+	color: #690;
 }
 
-.token.variable {
-	color: #C6C5FE;
-}
-
-.token.operator {
-	color: #EDEDED;
-}
-
-.token.entity {
-	color: #FFFFB6;
-	cursor: help;
-}
-
-.token.url {
-	color: #96CBFE;
-}
-
+.token.operator,
+.token.entity,
+.token.url,
 .language-css .token.string,
 .style .token.string {
-	color: #87C38A;
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
 }
 
 .token.atrule,
-.token.attr-value {
-	color: #F9EE98;
+.token.attr-value,
+.token.keyword {
+	color: #07a;
 }
 
 .token.function {
-	color: #4EF502;
+	color: #DD4A68;
 }
 
-.token.regex {
-	color: #E9C062;
-}
-
-.token.important {
-	color: #fd971f;
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
 }
 
 .token.important,
 .token.bold {
 	font-weight: bold;
 }
-
 .token.italic {
 	font-style: italic;
 }
-</style>
 
-<style type="text/css">
-pre.line-numbers {
-	position: relative;
-	padding-left: 3.8em;
-	counter-reset: linenumber;
+.token.entity {
+	cursor: help;
 }
-
-pre.line-numbers > code {
-	position: relative;
-}
-
-.line-numbers .line-numbers-rows {
-	position: absolute;
-	pointer-events: none;
-	top: 0;
-	font-size: 100%;
-	left: -3.8em;
-	width: 3em; /* works for line-numbers below 1000 lines */
-	letter-spacing: -1px;
-	border-right: 1px solid #999;
-
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-
-}
-
-	.line-numbers-rows > span {
-		pointer-events: none;
-		display: block;
-		counter-increment: linenumber;
-	}
-
-		.line-numbers-rows > span:before {
-			content: counter(linenumber);
-			color: #999;
-			display: block;
-			padding-right: 0.8em;
-			text-align: right;
-		}
 </style>
 
 
@@ -539,10 +458,10 @@ pre.line-numbers > code {
 
 <h2 id="toc_1">INSTALL</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">git clone https://github.com/niklaushirt/training.git
+<div><pre><code class="language-bash">git clone https://github.com/niklaushirt/training.git
 cd training</code></pre></div>
 
-<p><a href="">https://hub.docker.com</a></p>
+<p><a href="https://hub.docker.com">https://hub.docker.com</a></p>
 
 <p><BR></p>
 
@@ -564,11 +483,11 @@ cd training</code></pre></div>
 
 <h2 id="toc_3">BUILD</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">cd /Users/nhirt/TEMP/training
+<div><pre><code class="language-bash">cd /Users/nhirt/TEMP/training
 cd demo-app/k8sdemo/
 bat ./Dockerfile</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">podman build -t myimage:1.0.0 .
+<div><pre><code class="language-bash">podman build -t myimage:1.0.0 .
 podman images </code></pre></div>
 
 <p><BR></p>
@@ -577,7 +496,7 @@ podman images </code></pre></div>
 
 <h2 id="toc_4">PODMAN</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">podman context ls
+<div><pre><code class="language-bash">podman context ls
 
 podman --connection podman-machine-default-root run \
     --rm \
@@ -590,9 +509,9 @@ podman --connection podman-machine-default-root run \
     -p 8000:8000 \
     portainer/portainer-ce</code></pre></div>
 
-<p><a href="">https://localhost:9443</a></p>
+<p><a href="https://localhost:9443">https://localhost:9443</a></p>
 
-<div><pre class="line-numbers"><code class="language-bash">podman --connection podman-machine-default-root kill portainer
+<div><pre><code class="language-bash">podman --connection podman-machine-default-root kill portainer
 podman --connection podman-machine-default-root volume rm portainer_data</code></pre></div>
 
 <p><BR></p>
@@ -601,14 +520,14 @@ podman --connection podman-machine-default-root volume rm portainer_data</code><
 
 <h2 id="toc_5">RUN</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">podman run --rm -ti myimage:1.0.0 /bin/bash
+<div><pre><code class="language-bash">podman run --rm -ti myimage:1.0.0 /bin/bash
 uname -a</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">podman run --rm -ti -e MYVAR=foo -p 8080:3000 myimage:1.0.0</code></pre></div>
+<div><pre><code class="language-bash">podman run --rm -ti -e MYVAR=foo -p 8080:3000 myimage:1.0.0</code></pre></div>
 
-<p><a href="">http://localhost:8080</a></p>
+<p><a href="http://localhost:8080">http://localhost:8080</a></p>
 
-<div><pre class="line-numbers"><code class="language-bash">podman ps [-a]
+<div><pre><code class="language-bash">podman ps [-a]
 
 podman stop/kill &lt;CONTAINER_ID&gt;</code></pre></div>
 
@@ -618,7 +537,7 @@ podman stop/kill &lt;CONTAINER_ID&gt;</code></pre></div>
 
 <h2 id="toc_6">REGISTRY</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">podman login docker.io
+<div><pre><code class="language-bash">podman login docker.io
 
 podman tag myimage:1.0.0 docker.io/niklaushirt/myimage:1.0.0
 
@@ -627,9 +546,9 @@ podman push docker.io/niklaushirt/myimage:1.0.0
 
 podman pull docker.io/niklaushirt/myimage:latest</code></pre></div>
 
-<p><a href="">https://hub.docker.com/u/niklaushirt</a></p>
+<p><a href="https://hub.docker.com/u/niklaushirt">https://hub.docker.com/u/niklaushirt</a></p>
 
-<div><pre class="line-numbers"><code class="language-bash">podman build --platform linux/arm64/v8 --platform linux/amd64 -t myimage:1.0.0 --manifest myimage-mf .
+<div><pre><code class="language-bash">podman build --platform linux/arm64/v8 --platform linux/amd64 -t myimage:1.0.0 --manifest myimage-mf .
 podman manifest inspect myimage-mf|yq -P</code></pre></div>
 
 <p><BR><BR><BR><BR><BR><BR><BR><BR><BR></p>
@@ -646,7 +565,7 @@ podman manifest inspect myimage-mf|yq -P</code></pre></div>
 
 <h1 id="toc_7">K8s</h1>
 
-<div><pre class="line-numbers"><code class="language-bash">cd /Users/nhirt/TEMP/training
+<div><pre><code class="language-bash">cd /Users/nhirt/TEMP/training
 
 kubectl get nodes</code></pre></div>
 
@@ -656,18 +575,18 @@ kubectl get nodes</code></pre></div>
 
 <h2 id="toc_8">RUNNING</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">kubectl run nginx-demo --image=docker.io/nginx
+<div><pre><code class="language-bash">kubectl run nginx-demo --image=docker.io/nginx
 kubectl get pods</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/pod.yaml
+<div><pre><code class="language-bash">bat ./deployment/pod.yaml
 kubectl create -f ./deployment/pod.yaml
 kubectl apply -f ./deployment/pod.yaml
 
 kubectl get pods</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">kubectl get pods nginx -o yaml|yq</code></pre></div>
+<div><pre><code class="language-bash">kubectl get pods nginx -o yaml|yq</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">kubectl get pods
+<div><pre><code class="language-bash">kubectl get pods
 echo &quot;-----&quot;
 kubectl get pods -l release=april2023</code></pre></div>
 
@@ -677,11 +596,11 @@ kubectl get pods -l release=april2023</code></pre></div>
 
 <h2 id="toc_9">SERVICES</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">kubectl create -f ./deployment/service.yaml</code></pre></div>
+<div><pre><code class="language-bash">kubectl create -f ./deployment/service.yaml</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">kubectl port-forward --namespace default pod/nginx 8000:80</code></pre></div>
+<div><pre><code class="language-bash">kubectl port-forward --namespace default pod/nginx 8000:80</code></pre></div>
 
-<p><a href="">http://localhost:8000</a></p>
+<p><a href="http://localhost:8000">http://localhost:8000</a></p>
 
 <p><BR></p>
 
@@ -689,18 +608,18 @@ kubectl get pods -l release=april2023</code></pre></div>
 
 <h2 id="toc_10">DEPLOYMENT</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/deployment.yaml
+<div><pre><code class="language-bash">bat ./deployment/deployment.yaml
 
 kubectl apply -f ./deployment/deployment.yaml
 
 kubectl get pods
 kubectl get deployments</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">kubectl port-forward --namespace default deployment/nginx-deployment 8000:80</code></pre></div>
+<div><pre><code class="language-bash">kubectl port-forward --namespace default deployment/nginx-deployment 8000:80</code></pre></div>
 
-<p><a href="">http://localhost:8000</a></p>
+<p><a href="http://localhost:8000">http://localhost:8000</a></p>
 
-<div><pre class="line-numbers"><code class="language-bash">kubectl port-forward --namespace default service/nginx-service 8000:8000</code></pre></div>
+<div><pre><code class="language-bash">kubectl port-forward --namespace default service/nginx-service 8000:8000</code></pre></div>
 
 <p><BR></p>
 
@@ -708,7 +627,7 @@ kubectl get deployments</code></pre></div>
 
 <h2 id="toc_11">CONFIGURATION</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/deployment-cm.yaml
+<div><pre><code class="language-bash">bat ./deployment/deployment-cm.yaml
 
 kubectl apply -f ./deployment/deployment-cm.yaml</code></pre></div>
 
@@ -718,21 +637,21 @@ kubectl apply -f ./deployment/deployment-cm.yaml</code></pre></div>
 
 <h2 id="toc_12">APPLIED</h2>
 
-<p><a href="">https://niklaushirt.github.io/k8s<em>training</em>web/04-kubernetes-basics/04-kubernetes-basics-03</a></p>
+<p><a href="https://niklaushirt.github.io/k8s_training_web/04-kubernetes-basics/04-kubernetes-basics-03">https://niklaushirt.github.io/k8s<em>training</em>web/04-kubernetes-basics/04-kubernetes-basics-03</a></p>
 
-<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/demoapp-backend-mac.yaml
+<div><pre><code class="language-bash">bat ./deployment/demoapp-backend-mac.yaml
 
 bat ./deployment/demoapp-mac.yaml</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">kubectl create -f ./deployment/demoapp-backend-mac.yaml
+<div><pre><code class="language-bash">kubectl create -f ./deployment/demoapp-backend-mac.yaml
 kubectl create -f ./deployment/demoapp-backend-service.yaml
 
 kubectl create -f ./deployment/demoapp-mac.yaml
 kubectl create -f ./deployment/demoapp-service.yaml</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">kubectl port-forward --namespace default service/k8sdemo-service 3000:3000</code></pre></div>
+<div><pre><code class="language-bash">kubectl port-forward --namespace default service/k8sdemo-service 3000:3000</code></pre></div>
 
-<p><a href="">http://localhost:3000</a></p>
+<p><a href="http://localhost:3000">http://localhost:3000</a></p>
 
 <p><BR></p>
 
@@ -740,22 +659,22 @@ kubectl create -f ./deployment/demoapp-service.yaml</code></pre></div>
 
 <h2 id="toc_13">STORAGE</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">kubectl get StorageClasses</code></pre></div>
+<div><pre><code class="language-bash">kubectl get StorageClasses</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">bat ./volumes/1-simple-mysql-pv.yaml
+<div><pre><code class="language-bash">bat ./volumes/1-simple-mysql-pv.yaml
 kubectl apply -f ./volumes/1-simple-mysql-pv.yaml
 kubectl get pv
 kubectl describe pv mysql-pv-volume</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">bat ./volumes/2-simple-mysql-pvc.yaml
+<div><pre><code class="language-bash">bat ./volumes/2-simple-mysql-pvc.yaml
 kubectl apply -f ./volumes/2-simple-mysql-pvc.yaml
 kubectl get pvc</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">bat ./volumes/3-simple-mysql-deployment.yaml
+<div><pre><code class="language-bash">bat ./volumes/3-simple-mysql-deployment.yaml
 kubectl apply -f ./volumes/3-simple-mysql-deployment.yaml
 kubectl get deployment</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">k9s
+<div><pre><code class="language-bash">k9s
 
 mysql -ppassword
 
@@ -777,7 +696,7 @@ exit;</code></pre></div>
 
 <h1 id="toc_14">ADVANCED</h1>
 
-<div><pre class="line-numbers"><code class="language-bash">kubectl apply -f ./deployment/deployment-READY.yaml
+<div><pre><code class="language-bash">kubectl apply -f ./deployment/deployment-READY.yaml
 kubectl apply -f ./deployment/deployment-LIVENESS.yaml
 kubectl apply -f ./deployment/deployment-OOM.yaml
 kubectl apply -f ./deployment/deployment-crashloop.yaml
@@ -790,7 +709,7 @@ kubectl apply -f ./deployment/deployment-imagepull-sa.yaml</code></pre></div>
 
 <h2 id="toc_15">LIMITS</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/deployment-READY.yaml
+<div><pre><code class="language-bash">bat ./deployment/deployment-READY.yaml
 bat ./deployment/deployment-LIVENESS.yaml</code></pre></div>
 
 <p><BR></p>
@@ -799,7 +718,7 @@ bat ./deployment/deployment-LIVENESS.yaml</code></pre></div>
 
 <h2 id="toc_16">PROBES</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/deployment-OOM.yaml</code></pre></div>
+<div><pre><code class="language-bash">bat ./deployment/deployment-OOM.yaml</code></pre></div>
 
 <p><BR></p>
 
@@ -807,20 +726,20 @@ bat ./deployment/deployment-LIVENESS.yaml</code></pre></div>
 
 <h2 id="toc_17">RBAC</h2>
 
-<p><a href="">https://niklaushirt.github.io/k8s<em>training</em>web/06-security/06-security-04</a></p>
+<p><a href="https://niklaushirt.github.io/k8s_training_web/06-security/06-security-04">https://niklaushirt.github.io/k8s<em>training</em>web/06-security/06-security-04</a></p>
 
-<div><pre class="line-numbers"><code class="language-bash">rakkess resource pods --namespace default</code></pre></div>
+<div><pre><code class="language-bash">rakkess resource pods --namespace default</code></pre></div>
 
-<p><a href="">https://github.com/alcideio/rbac-tool/releases</a></p>
+<p><a href="https://github.com/alcideio/rbac-tool/releases">https://github.com/alcideio/rbac-tool/releases</a></p>
 
-<div><pre class="line-numbers"><code class="language-bash">rbac-tool analysis -o table
+<div><pre><code class="language-bash">rbac-tool analysis -o table
 rbac-tool viz --include-namespaces default --include-pods-only --show-legend --show-psp --show-rule
 
 rbac-tool lookup -e &#39;^kubeadm:.*&#39;
 
 rbac-tool lookup -e &#39;.*demo.*&#39;</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/critical.yaml
+<div><pre><code class="language-bash">bat ./deployment/critical.yaml
 kubectl apply -f ./deployment/critical.yaml</code></pre></div>
 
 <p><BR></p>
@@ -829,15 +748,15 @@ kubectl apply -f ./deployment/critical.yaml</code></pre></div>
 
 <h2 id="toc_18">SECURITY</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">conftest test -p ./conftest/src/examples/kubernetes/policy ./deployment/demoapp.yaml</code></pre></div>
+<div><pre><code class="language-bash">conftest test -p ./conftest/src/examples/kubernetes/policy ./deployment/demoapp.yaml</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-bash">kubescape list controls
+<div><pre><code class="language-bash">kubescape list controls
 
 kubescape scan
 
 kubescape scan control C-0067,C-0066,C-0035,C-0012,C-0057,C-0048,C-0041 -v</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-none">kubescape list frameworks
+<div><pre><code class="language-none">kubescape list frameworks
 
 kubescape scan framework DevOpsBest
 kubescape scan framework DevOpsBest -v
@@ -846,7 +765,7 @@ kubescape scan framework mitre -v
 kubescape scan framework cis-v1.23-t1.0.1 -v -f html&gt; result.html
 open result.html</code></pre></div>
 
-<div><pre class="line-numbers"><code class="language-none"># Minimize wildcard use in Roles
+<div><pre><code class="language-none"># Minimize wildcard use in Roles
 kubescape scan control C-0187 -v
 
 # Privileged container
@@ -867,7 +786,7 @@ kubescape scan control C-0012 -v</code></pre></div>
 
 <h2 id="toc_19">DEBUG</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">bat ./deployment/deployment-crashloop.yaml
+<div><pre><code class="language-bash">bat ./deployment/deployment-crashloop.yaml
 bat ./deployment/deployment-imagepull.yaml
 bat ./deployment/deployment-imagepull-sa.yaml</code></pre></div>
 
@@ -877,7 +796,7 @@ bat ./deployment/deployment-imagepull-sa.yaml</code></pre></div>
 
 <h2 id="toc_20">CLEAN-UP</h2>
 
-<div><pre class="line-numbers"><code class="language-bash">kubectl delete -f ./deployment/deployment-crashloop.yaml
+<div><pre><code class="language-bash">kubectl delete -f ./deployment/deployment-crashloop.yaml
 kubectl delete -f ./deployment/deployment-imagepull.yaml
 kubectl delete -f ./deployment/deployment-imagepull-sa.yaml
 kubectl delete -f ./deployment/deployment-OOM.yaml
@@ -917,10 +836,6 @@ var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScop
 
 <script type="text/javascript">
 !function(e){var t={variable:[{pattern:/\$?\(\([\w\W]+?\)\)/,inside:{variable:[{pattern:/(^\$\(\([\w\W]+)\)\)/,lookbehind:!0},/^\$\(\(/],number:/\b-?(?:0x[\dA-Fa-f]+|\d*\.?\d+(?:[Ee]-?\d+)?)\b/,operator:/--?|-=|\+\+?|\+=|!=?|~|\*\*?|\*=|\/=?|%=?|<<=?|>>=?|<=?|>=?|==?|&&?|&=|\^=?|\|\|?|\|=|\?|:/,punctuation:/\(\(?|\)\)?|,|;/}},{pattern:/\$\([^)]+\)|`[^`]+`/,inside:{variable:/^\$\(|^`|\)$|`$/}},/\$(?:[a-z0-9_#\?\*!@]+|\{[^}]+\})/i]};e.languages.bash={shebang:{pattern:/^#!\s*\/bin\/bash|^#!\s*\/bin\/sh/,alias:"important"},comment:{pattern:/(^|[^"{\\])#.*/,lookbehind:!0},string:[{pattern:/((?:^|[^<])<<\s*)(?:"|')?(\w+?)(?:"|')?\s*\r?\n(?:[\s\S])*?\r?\n\2/g,lookbehind:!0,inside:t},{pattern:/(["'])(?:\\\\|\\?[^\\])*?\1/g,inside:t}],variable:t.variable,"function":{pattern:/(^|\s|;|\||&)(?:istioctl|rbac-view|curl|wget|rakkess|openssl|conftest|kubehunter|kubesec|alias|kubectl|docker|pstree|minikube|gedit|operator-sdk|gitrefresh|apropos|apt-get|aptitude|aspell|awk|basename|bash|bc|bg|builtin|bzip2|cal|cat|cd|cfdisk|chgrp|chmod|chown|chroot|chkconfig|cksum|clear|cmp|comm|command|cp|cron|crontab|csplit|cut|date|dc|dd|ddrescue|df|diff|diff3|dig|dir|dircolors|dirname|dirs|dmesg|du|egrep|eject|enable|env|ethtool|eval|exec|expand|expect|export|expr|fdformat|fdisk|fg|fgrep|file|find|fmt|fold|format|free|fsck|ftp|fuser|gawk|getopts|git|grep|groupadd|groupdel|groupmod|groups|gzip|hash|head|help|hg|history|hostname|htop|iconv|id|ifconfig|ifdown|ifup|import|install|jobs|join|kill|killall|less|link|ln|locate|logname|logout|look|lpc|lpr|lprint|lprintd|lprintq|lprm|ls|lsof|make|man|mkdir|mkfifo|mkisofs|mknod|more|most|mount|mtools|mtr|mv|mmv|nano|netstat|nice|nl|nohup|notify-send|nslookup|open|op|passwd|paste|pathchk|ping|pkill|popd|pr|printcap|printenv|printf|ps|pushd|pv|pwd|quota|quotacheck|quotactl|ram|rar|rcp|read|readarray|readonly|reboot|rename|renice|remsync|rev|rm|rmdir|rsync|screen|scp|sdiff|sed|seq|service|sftp|shift|shopt|shutdown|sleep|slocate|sort|source|split|ssh|stat|strace|su|sudo|sum|suspend|sync|tail|tar|tee|test|time|timeout|times|touch|top|traceroute|trap|tr|tsort|tty|type|ulimit|umask|umount|unalias|uname|unexpand|uniq|units|unrar|unshar|uptime|useradd|userdel|usermod|users|uuencode|uudecode|v|vdir|vi|vmstat|wait|watch|wc|wget|whereis|which|who|whoami|write|xargs|xdg-open|yes|zip)(?=$|\s|;|\||&)/,lookbehind:!0},keyword:{pattern:/(^|\s|;|\||&)(?:let|:|\.|if|then|else|elif|fi|for|break|continue|while|in|case|function|select|do|done|until|echo|exit|new|build|port-forward|patch|push|create|get|apply|run|delete|describe|expose|scale|return|set|declare)(?=$|\s|;|\||&)/,lookbehind:!0},"boolean":{pattern:/(^|\s|;|\||&)(?:true|false)(?=$|\s|;|\||&)/,lookbehind:!0},operator:/&&?|\|\|?|==?|!=?|<<<?|>>|<=?|>=?|=~/,punctuation:/\$?\(\(?|\)\)?|\.\.|[{}[\];]/};var a=t.variable[1].inside;a["function"]=e.languages.bash["function"],a.keyword=e.languages.bash.keyword,a.boolean=e.languages.bash.boolean,a.operator=e.languages.bash.operator,a.punctuation=e.languages.bash.punctuation}(Prism);
-</script>
-
-<script type="text/javascript">
-!function(){"undefined"!=typeof self&&self.Prism&&self.document&&Prism.hooks.add("complete",function(e){if(e.code){var t=e.element.parentNode,s=/\s*\bline-numbers\b\s*/;if(t&&/pre/i.test(t.nodeName)&&(s.test(t.className)||s.test(e.element.className))&&!e.element.querySelector(".line-numbers-rows")){s.test(e.element.className)&&(e.element.className=e.element.className.replace(s,"")),s.test(t.className)||(t.className+=" line-numbers");var n,a=e.code.match(/\n(?!$)/g),l=a?a.length+1:1,m=new Array(l+1);m=m.join("<span></span>"),n=document.createElement("span"),n.className="line-numbers-rows",n.innerHTML=m,t.hasAttribute("data-start")&&(t.style.counterReset="linenumber "+(parseInt(t.getAttribute("data-start"),10)-1)),e.element.appendChild(n)}}})}();
 </script>
 
 
